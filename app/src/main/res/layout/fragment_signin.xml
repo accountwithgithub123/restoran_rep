@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    android:orientation="vertical"
+    android:paddingTop="10dp"
+    android:paddingEnd="10dp"
+    android:paddingStart="10dp"
+    android:gravity="center_horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragements.SigninFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        style="@style/Widget.Design.TextInputLayout"
+        app:startIconDrawable="@drawable/baseline_email_24"
+        app:hintAnimationEnabled="true">
+        <EditText
+            android:inputType="textEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:hint="Email Address"
+            android:padding="5dp"
+            android:id="@+id/etemail1"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:expandedHintEnabled="true"
+        style="@style/Widget.Design.TextInputLayout"
+        app:passwordToggleEnabled="true"
+        app:startIconDrawable="@drawable/baseline_lock_open_24"
+        >
+        <EditText
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:hint="Password"
+            android:padding="5dp"
+            android:id="@+id/etpass1"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <CheckBox
+        android:id="@+id/remem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Remember Me"/>
+
+    <Button
+        android:id="@+id/btnlogin"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:textSize="18dp"
+        android:layout_marginTop="5dp"
+        android:text="Login" />
+    <Button
+        android:id="@+id/btnforget"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:text="Forgot Password?" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Or use Social Media accounts to Login!"
+         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <ImageView
+            android:id="@+id/fbLogo"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:contentDescription="img"
+            android:focusable="true"
+            android:src="@drawable/fb" />
+
+        <ImageView
+            android:id="@+id/phoneLogo"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:contentDescription="img"
+            android:focusable="true"
+            android:src="@drawable/phone" />
+
+        <ImageView
+            android:id="@+id/gogleLogo"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:contentDescription="img"
+            android:focusable="true"
+            android:src="@drawable/google" />
+    </LinearLayout>
+
+</LinearLayout>

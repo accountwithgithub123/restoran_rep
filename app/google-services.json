@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "9016117705",
+    "firebase_url": "https://maybequiz-30f8d-default-rtdb.firebaseio.com",
+    "project_id": "maybequiz-30f8d",
+    "storage_bucket": "maybequiz-30f8d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9016117705:android:dc686ad49ba03edc1f8018",
+        "android_client_info": {
+          "package_name": "com.example.maybequiz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBA0isUVNCviSCSZ3y04P3GUYFe4fBv4kE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9016117705:android:3e4b082c18e2ee0f1f8018",
+        "android_client_info": {
+          "package_name": "com.example.restoran"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBA0isUVNCviSCSZ3y04P3GUYFe4fBv4kE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="280dp"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/ivClose"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_gravity="end"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/bg_ripple_yellow"
+        android:src="@drawable/baseline_close_24"/>
+    <TextView
+        style="@style/cardHtext"
+        android:text="Rate Us"
+        android:layout_gravity="center_horizontal"/>
+    <TextView
+        style="@style/cardBtext"
+        android:text="How was the experience?"
+        android:layout_gravity="center_horizontal"/>
+    <RatingBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        >
+        <Button
+            android:id="@+id/btnNot"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="54dp"
+            android:layout_margin="5dp"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/lighGray"
+            android:text="Not now" />
+        <Button
+            android:id="@+id/btnrate"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="54dp"
+            android:layout_margin="5dp"
+            android:textSize="18dp"
+            android:text="Rate" />
+
+    </LinearLayout>
+</LinearLayout>

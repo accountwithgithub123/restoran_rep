@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Restoran</string>
+    <string name="name">Restoran</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="detail">Come and join us, and let us delight your senses with our passion for exceptional food and warm hospitality. \"Experience the magic of Restoran and create lasting memories.</string>
+    <string name="quality_text">Quality is the degree to excellence at an acceptable price and control of variability at an acceptable price.</string>
+    <string name="online_order">In order to check all the restaurants near you that deliver, just type in your address and discover all available places.</string>
+    <string name="service">Customer support means they can get help and find answers to questions as soon as they come up 24/7 and in real-time.</string>
+    <string name="cheftxt">A master of modern gastronomy, Chef Javior Ramirz is known for his innovative approach to classic recipes.</string>
+    <string name="aboutTxt">Where culinary excellence meets warm hospitality. We are a passionate team of food enthusiasts dedicated to providing a remarkable dining experience for our guest.\nAt Restoran, we believe that food is an art form that should be celebrated and savored.\nOur talented chefs meticulously craft each dish with the finest.</string>
+    <string name="desc">    With a flair for international cuisine, Chef Alexandra Grant brings a global perspective to our kitchen. His creations are as visually stunning as they are delicious, combining unexpected ingredients and techniques to deliver a truly extraordinary. His culinary journey has taken him from the bustling street food markets of Southeast Asia to the vibrant culinary scenes of Europe. Drawing inspiration from her travels, Chef expertly blends bold flavors and spices to create unique and unforgettable dishes.</string>
+</resources>

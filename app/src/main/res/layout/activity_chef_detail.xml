@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChefDetail">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="10dp">
+            <ImageView
+                android:id="@+id/ivPic"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="200dp"
+                android:src="@drawable/team1"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:text="Javier Joseph" />
+        </LinearLayout>
+        <LinearLayout
+            style="@style/textLayout">
+            <TextView
+                style="@style/textTxt1"
+                android:text="Age:" />
+            <TextView
+                android:id="@+id/tvage"
+                style="@style/textTxt2"
+                android:text="  50 Years" />
+        </LinearLayout>
+        <LinearLayout
+            style="@style/textLayout">
+            <TextView
+                style="@style/textTxt1"
+                android:text="Experience:" />
+            <TextView
+                android:id="@+id/tvexp"
+                style="@style/textTxt2"
+                android:text="  15+ Years" />
+        </LinearLayout>
+        <LinearLayout
+            style="@style/textLayout">
+            <TextView
+                style="@style/textTxt1"
+                android:text="Phone:" />
+            <Button
+                android:id="@+id/btntvPhone"
+                style="@style/textBtn"
+                android:text="+92 03202290018" />
+        </LinearLayout>
+        <LinearLayout
+            style="@style/textLayout">
+            <TextView
+                style="@style/textTxt1"
+                android:text="Email:" />
+            <Button
+                android:id="@+id/btntvemail"
+                style="@style/textBtn"
+                android:text="alexandra@gmail.com" />
+        </LinearLayout>
+        <LinearLayout
+            style="@style/textLayout">
+            <TextView
+                style="@style/textTxt1"
+                android:text="Address:" />
+            <Button
+                android:id="@+id/btntvaddress"
+                style="@style/textBtn"
+                android:text="6031 Elgirit St. Calina, United States" />
+        </LinearLayout>
+        <TextView
+            style="@style/cardHtext"
+            android:layout_gravity="start"
+            android:text="Description:" />
+        <TextView
+            android:id="@+id/tvdesc"
+            style="@style/cardBtext"
+            android:layout_gravity="start"
+            android:textAlignment="textStart"
+            android:text="\tWith a flair for international cuisine, Chef Alexandra Grant brings a global perspective to our kitchen." />
+
+
+
+    </LinearLayout>
+
+</ScrollView>

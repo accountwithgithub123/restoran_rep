@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:text="Welcome to Restoran"
+            android:textColor="@color/orange"
+            android:textSize="30dp"
+            android:textStyle="italic|bold"
+            style="@style/cardHtext"/>
+        <LinearLayout
+            android:layout_width="320dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="170dp"
+                android:src="@drawable/about_one"
+                android:scaleType="centerCrop"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="120dp"
+                android:src="@drawable/about_two"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="10dp"
+                android:scaleType="centerCrop"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="320dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="120dp"
+                android:src="@drawable/about_three"
+                android:scaleType="centerCrop"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:layout_height="170dp"
+                android:src="@drawable/about_four"
+                android:scaleType="centerCrop"/>
+
+
+
+        </LinearLayout>
+        <TextView
+            android:text="@string/aboutTxt"
+            android:textSize="20dp"
+            android:padding="14dp"
+            android:textAlignment="textStart"
+            style="@style/cardBtext"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="bottom"
+            android:padding="10dp">
+            <View
+                android:layout_width="8dp"
+                android:layout_height="80dp"
+                android:background="@color/orange"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15"
+                android:padding="5dp"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                android:textColor="@color/orange"
+                />
+            <TextView
+                android:text="Years Experience        "
+                style="@style/cardBtext"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="bottom"
+            android:padding="10dp">
+            <View
+                android:layout_width="8dp"
+                android:layout_height="80dp"
+                android:background="@color/orange"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="50"
+                android:padding="5dp"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                android:textColor="@color/orange"
+                />
+            <TextView
+                android:text="Popular Master Chefs"
+                style="@style/cardBtext"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
