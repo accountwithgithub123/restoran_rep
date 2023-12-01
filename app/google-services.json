@@ -13,7 +13,12 @@
           "package_name": "com.example.maybequiz"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "9016117705-h19qqfbh3t1f8pqm39k7ai0prigo7od9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBA0isUVNCviSCSZ3y04P3GUYFe4fBv4kE"
@@ -21,7 +26,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "9016117705-h19qqfbh3t1f8pqm39k7ai0prigo7od9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     },
@@ -32,7 +42,20 @@
           "package_name": "com.example.restoran"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "9016117705-3gsiv8c8j11d0njdcaf321d559nnl03t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.restoran",
+            "certificate_hash": "d8572f3e46baca7cf8eba38238e41335ab85bf4d"
+          }
+        },
+        {
+          "client_id": "9016117705-h19qqfbh3t1f8pqm39k7ai0prigo7od9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBA0isUVNCviSCSZ3y04P3GUYFe4fBv4kE"
@@ -40,7 +63,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "9016117705-h19qqfbh3t1f8pqm39k7ai0prigo7od9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

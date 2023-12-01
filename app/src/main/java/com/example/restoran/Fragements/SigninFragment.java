@@ -20,13 +20,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.restoran.LoginRegister;
 import com.example.restoran.MainActivity;
 import com.example.restoran.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -34,10 +41,13 @@ import com.google.firebase.auth.FirebaseAuth;
 public class SigninFragment extends Fragment {
 
     Button btnSignIn,forgetpass;
+    ImageView ivgoogle;
     EditText etemail,etpass;
     CheckBox reme;
 
+    GoogleSignInClient mclient;
     LoginRegister activity;
+    private static final int RC_SIGN_IN = 123;
     public SigninFragment() {
         // Required empty public constructor
     }
@@ -90,7 +100,45 @@ public class SigninFragment extends Fragment {
                 Log.e(TAG, "SIGNinFragment : " + e.getMessage() );
             }
         });
+        ivgoogle.setOnClickListener(v -> {
+            createRequest();
+            signIn();
+        });
     }
+
+    private void createRequest() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+         mclient = GoogleSignIn.getClient(activity,gso);
+    }
+    private void signIn() {
+        Intent signInIntent = mclient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
+    }
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            startActivity(new Intent(requireContext(), MainActivity.class));
+            requireActivity().finish();
+            // e.g., account.getEmail(), account.getDisplayName(), etc.
+        } catch (ApiException e) {
+            // Handle failed sign-in
+            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
+        }
+    }
+
+
 
 
     private boolean allDataCorrect() {
@@ -135,5 +183,6 @@ public class SigninFragment extends Fragment {
         etemail = view.findViewById(R.id.etemail1);
         etpass = view.findViewById(R.id.etpass1);
         reme = view.findViewById(R.id.remem);
+        ivgoogle = view.findViewById(R.id.gogleLogo);
     }
 }
