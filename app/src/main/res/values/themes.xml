@@ -8,7 +8,12 @@
         <item name="android:windowLightStatusBar" >true</item>
     </style>
 
-    <style name="Theme.Restoran" parent="Base.Theme.Restoran" />
+    <style name="main2Theme" parent="Base.Theme.Restoran" >
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:statusBarColor" >@color/white</item>
+        <item name="android:colorPrimary" >@color/white</item>
+        <item name="android:windowLightStatusBar" >true</item>
+    </style>
     <style name="mainActivity" parent="Base.Theme.Restoran" >
         <item name="android:statusBarColor" >@color/orange</item>
         <item name="android:windowLightStatusBar" >false</item>
@@ -17,7 +22,6 @@
 
 
     <style name="splashActivity" parent="Theme.Material3.Light.NoActionBar">
-
         <item name="android:windowBackground">@color/white</item>
         <item name="android:statusBarColor" >@color/white</item>
         <item name="android:windowLightStatusBar" >true</item>
@@ -26,7 +30,7 @@
 
         <item name="android:windowBackground">@color/white</item>
         <item name="android:statusBarColor" >@color/white</item>
-        <item name="android:colorPrimary" >@color/white</item>
+        <item name="android:colorPrimary" >@color/orange</item>
         <item name="android:windowLightStatusBar" >true</item>
     </style>
 
@@ -104,6 +108,16 @@
         <item name="android:textAlignment">textStart</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="texInLay" parent="@style/Widget.Material3.TextInputLayout.OutlinedBox" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding" >5dp</item>
+    </style>
+    <style name="texInLayEt">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">52dp</item>
+        <item name="android:background" >@null</item>
     </style>
 
 

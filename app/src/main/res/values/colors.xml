@@ -7,6 +7,7 @@
     <color name="noColor">#00FFFFFF</color>
     <color name="tran">#00F44336</color>
     <color name="lighOrange">#FFC36A</color>
-    <color name="lighGray">#B3B3B3</color>
+    <color name="lighGray">#CCCCCC</color>
     <color name="transparentDark">#9B000000</color>
+    <color name="darkGray">#3D3D3D</color>
 </resources>

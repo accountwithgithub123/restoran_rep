@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BookTable">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:text="----- Reservation -----"
+            android:textColor="@color/orange"
+            android:textSize="30dp"
+            android:textStyle="italic|bold"
+            style="@style/cardHtext"/>
+        <TextView
+            android:text="Book a table online"
+            android:textSize="20dp"
+            android:layout_gravity="start"
+            style="@style/cardHtext"/>
+       <com.google.android.material.textfield.TextInputLayout
+           app:startIconDrawable="@drawable/baseline_person_outline_24"
+           style="@style/texInLay">
+
+           <EditText
+               android:id="@+id/etNamebt"
+               android:hint="Your Name*"
+               style="@style/texInLayEt"/>
+
+
+       </com.google.android.material.textfield.TextInputLayout>
+       <com.google.android.material.textfield.TextInputLayout
+           app:startIconDrawable="@drawable/baseline_email_24"
+           style="@style/texInLay">
+
+           <EditText
+               android:id="@+id/etembt"
+               android:hint="Your Email*"
+               style="@style/texInLayEt"/>
+
+
+       </com.google.android.material.textfield.TextInputLayout>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:gravity="center">
+
+           <com.google.android.material.textfield.TextInputLayout
+               app:startIconDrawable="@drawable/outline_calendar_month_24"
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               style="@style/texInLay">
+
+               <EditText
+                   android:id="@+id/etdatebt"
+                   android:hint="Date*"
+                   android:inputType="date"
+                   style="@style/texInLayEt"/>
+
+
+           </com.google.android.material.textfield.TextInputLayout>
+           <com.google.android.material.textfield.TextInputLayout
+               app:startIconDrawable="@drawable/baseline_access_time_24"
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               style="@style/texInLay">
+
+               <EditText
+                   android:id="@+id/ettimebt"
+                   android:hint="Time*"
+                   android:inputType="time"
+                   style="@style/texInLayEt"/>
+
+
+           </com.google.android.material.textfield.TextInputLayout>
+
+
+       </LinearLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            app:startIconDrawable="@drawable/baseline_people_outline_24"
+            style="@style/texInLay">
+
+            <EditText
+                android:id="@+id/etguestbt"
+                android:hint="No. of Guests*"
+                android:inputType="number"
+                style="@style/texInLayEt"/>
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/texInLay">
+
+            <EditText
+                android:id="@+id/etrequestbt"
+                android:inputType="textMultiLine"
+                android:layout_height="120dp"
+                android:gravity="start"
+                android:hint="Special Request..."
+                style="@style/texInLayEt"/>
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            >
+            <Button
+                android:id="@+id/btnNot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="54dp"
+                android:layout_margin="15dp"
+                android:textSize="18dp"
+                android:textAllCaps="true"
+                android:textColor="@color/darkGray"
+                android:backgroundTint="@color/lighGray"
+                android:text="Cancel" />
+            <Button
+                android:backgroundTint="@color/orange"
+                android:id="@+id/btnrate"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="54dp"
+                android:layout_margin="5dp"
+                android:textAllCaps="true"
+                android:textSize="20dp"
+                android:text="Book Now" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,6 +1,7 @@
 package com.example.restoran;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.SharedPreferences;
@@ -24,6 +25,8 @@ public class LoginRegister extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_register);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
         viewPager = findViewById(R.id.viewpager);
         anim = findViewById(R.id.animationView);
         tab = findViewById(R.id.tabLayout);
