@@ -8,11 +8,11 @@
         <item name="android:windowLightStatusBar" >true</item>
     </style>
 
-    <style name="main2Theme" parent="Base.Theme.Restoran" >
-        <item name="android:windowBackground">@color/white</item>
-        <item name="android:statusBarColor" >@color/white</item>
-        <item name="android:colorPrimary" >@color/white</item>
-        <item name="android:windowLightStatusBar" >true</item>
+    <style name="main2Theme" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:windowBackground">@color/lighOrange</item>
+        <item name="android:statusBarColor" >@color/orange</item>
+        <item name="android:colorPrimary" >@color/orange</item>
+
     </style>
     <style name="mainActivity" parent="Base.Theme.Restoran" >
         <item name="android:statusBarColor" >@color/orange</item>
@@ -31,6 +31,7 @@
         <item name="android:windowBackground">@color/white</item>
         <item name="android:statusBarColor" >@color/white</item>
         <item name="android:colorPrimary" >@color/orange</item>
+
         <item name="android:windowLightStatusBar" >true</item>
     </style>
 
@@ -113,6 +114,31 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding" >5dp</item>
+    </style>
+    <style name="imgLeft" >
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight" >1</item>
+    </style>
+    <style name="textRight" >
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight" >3</item>
+        <item name="android:textSize">18sp</item>
+
+    </style>
+    <style name="dateTimeLay" >
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_weight" >1</item>
+        <item name="android:padding" >5dp</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:orientation" >horizontal</item>
+        <item name="android:clickable" >true</item>
+        <item name="android:focusable" >true</item>
+        <item name="android:gravity" >center_vertical</item>
+        <item name="android:background" >@drawable/outline_bg</item>
+
     </style>
     <style name="texInLayEt">
         <item name="android:layout_width">match_parent</item>

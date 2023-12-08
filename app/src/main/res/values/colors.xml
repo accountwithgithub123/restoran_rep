@@ -2,11 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="orange">#FF9800</color>
+    <color name="orange">#F9830D</color>
     <color name="darkBlue">#1D2341</color>
     <color name="noColor">#00FFFFFF</color>
-    <color name="tran">#00F44336</color>
-    <color name="lighOrange">#FFC36A</color>
+    <color name="tran">#5A000000</color>
+    <color name="lighOrange">#FECD84</color>
     <color name="lighGray">#CCCCCC</color>
     <color name="transparentDark">#9B000000</color>
     <color name="darkGray">#3D3D3D</color>

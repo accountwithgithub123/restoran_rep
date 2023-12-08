@@ -22,6 +22,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navView;
-//    ImageView toggle;
+    ImageView toggle;
     ImageView ivrotate;
-    Button btnBookt;
+    FloatingActionButton btnBookt;
 
 
     @Override
@@ -42,10 +43,10 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         initializer();
         ivrotate.setAnimation(AnimationUtils.loadAnimation(this,R.anim.rotate_img));
-//        toggle.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
+        toggle.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close);
+//        drawerLayout.addDrawerListener(toggle);
+//        toggle.syncState();
         btnBookt.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,BookTable.class)));
 
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
     private void initializer() {
         ivrotate = findViewById(R.id.ivhero);
         btnBookt = findViewById(R.id.btable);
-//        toggle = findViewById(R.id.toggle);
+        toggle = findViewById(R.id.toggle);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.drawer);

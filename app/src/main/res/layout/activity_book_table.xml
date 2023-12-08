@@ -19,7 +19,7 @@
             android:textStyle="italic|bold"
             style="@style/cardHtext"/>
         <TextView
-            android:text="Book a table online"
+            android:text="\nBook a table online\n"
             android:textSize="20dp"
             android:layout_gravity="start"
             style="@style/cardHtext"/>
@@ -30,6 +30,7 @@
            <EditText
                android:id="@+id/etNamebt"
                android:hint="Your Name*"
+               android:inputType="textPersonName"
                style="@style/texInLayEt"/>
 
 
@@ -41,6 +42,7 @@
            <EditText
                android:id="@+id/etembt"
                android:hint="Your Email*"
+               android:inputType="textEmailAddress"
                style="@style/texInLayEt"/>
 
 
@@ -51,34 +53,36 @@
            android:orientation="horizontal"
            android:gravity="center">
 
-           <com.google.android.material.textfield.TextInputLayout
-               app:startIconDrawable="@drawable/outline_calendar_month_24"
-               android:layout_width="0dp"
-               android:layout_weight="1"
-               style="@style/texInLay">
+           <LinearLayout
+               android:id="@+id/laydatebt"
+               style="@style/dateTimeLay">
 
-               <EditText
+               <ImageView
+                   style="@style/imgLeft"
+                   android:src="@drawable/outline_calendar_month_24"/>
+
+               <TextView
                    android:id="@+id/etdatebt"
-                   android:hint="Date*"
-                   android:inputType="date"
-                   style="@style/texInLayEt"/>
+                   android:text="Date*"
+                   style="@style/textRight"/>
 
 
-           </com.google.android.material.textfield.TextInputLayout>
-           <com.google.android.material.textfield.TextInputLayout
-               app:startIconDrawable="@drawable/baseline_access_time_24"
-               android:layout_width="0dp"
-               android:layout_weight="1"
-               style="@style/texInLay">
+           </LinearLayout>
+           <LinearLayout
+               android:id="@+id/laytimebt"
+               style="@style/dateTimeLay">
 
-               <EditText
+               <ImageView
+                   style="@style/imgLeft"
+                   android:src="@drawable/outline_calendar_month_24"/>
+
+               <TextView
                    android:id="@+id/ettimebt"
-                   android:hint="Time*"
-                   android:inputType="time"
-                   style="@style/texInLayEt"/>
+                   android:text="Time*"
+                   style="@style/textRight"/>
 
 
-           </com.google.android.material.textfield.TextInputLayout>
+           </LinearLayout>
 
 
        </LinearLayout>
@@ -115,25 +119,23 @@
             android:paddingBottom="10dp"
             >
             <Button
-                android:id="@+id/btnNot"
+                android:id="@+id/btnCancel"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="54dp"
-                android:layout_margin="15dp"
-                android:textSize="18dp"
+                android:layout_margin="10dp"
                 android:textAllCaps="true"
                 android:textColor="@color/darkGray"
                 android:backgroundTint="@color/lighGray"
                 android:text="Cancel" />
             <Button
                 android:backgroundTint="@color/orange"
-                android:id="@+id/btnrate"
+                android:id="@+id/btnsubmit"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="54dp"
                 android:layout_margin="5dp"
                 android:textAllCaps="true"
-                android:textSize="20dp"
                 android:text="Book Now" />
 
         </LinearLayout>

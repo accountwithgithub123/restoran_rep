@@ -20,7 +20,8 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_UNSPECIFIED);
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         SharedPreferences pref = getSharedPreferences("Loged",MODE_PRIVATE);
         boolean isloged =  pref.getBoolean("isloged",false);
         ImageView ivhost = findViewById(R.id.ghLogo);
@@ -40,8 +41,8 @@ public class SplashActivity extends AppCompatActivity {
                     startActivity(new Intent(SplashActivity.this,MainActivity.class));
                 }
                 else{
-                    startActivity(new Intent(SplashActivity.this,MainActivity.class));
-//                    startActivity(new Intent(SplashActivity.this,LoginRegister.class));
+//                    startActivity(new Intent(SplashActivity.this,MainActivity.class));
+                    startActivity(new Intent(SplashActivity.this,LoginRegister.class));
                 }
                 finish();
             }
