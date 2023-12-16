@@ -130,6 +130,7 @@ public class SigninFragment extends Fragment {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             startActivity(new Intent(requireContext(), MainActivity.class));
+            activity.keepLogged();
             requireActivity().finish();
             // e.g., account.getEmail(), account.getDisplayName(), etc.
         } catch (ApiException e) {

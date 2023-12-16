@@ -1,5 +1,7 @@
 package com.example.restoran;
 
+import static com.airbnb.lottie.L.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,31 +12,45 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
+    TextView tvUname;
+    CircleImageView profImg;
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navView;
     ImageView toggle;
     ImageView ivrotate;
     FloatingActionButton btnBookt;
-
+    String imgUrl = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +58,36 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         initializer();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+        if (user!=null){
+            if (user.getEmail()!=null){
+                tvUname.setText(user.getEmail());
+                DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Profile_Img_Links")
+                        .child(user.getEmail());
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // This method is called once with the initial value and whenever data at this location is updated.
+                        // You can get the value using dataSnapshot.getValue()
+                        imgUrl = dataSnapshot.getValue(String.class);
+                        Log.d("readingData from Database", "Value is: " + imgUrl);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+            }
+            if (user.getPhotoUrl()!=null){
+                picassoFunction(user.getPhotoUrl());
+            }else if(!imgUrl.equals("")){
+                picassoFunction(Uri.parse(imgUrl));
+            }
+        }
         ivrotate.setAnimation(AnimationUtils.loadAnimation(this,R.anim.rotate_img));
         toggle.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
 //        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close);
@@ -85,6 +131,18 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    private void picassoFunction(Uri url){
+        try {
+            Picasso.get()
+                    .load(url)
+                    .into(profImg);
+            Log.d(ContentValues.TAG, "IMG_URI_Frag_picasso: "+url);
+        }
+        catch (Exception e){
+            Log.e(ContentValues.TAG, "PicassoFunction: " + e.getMessage() );
+        }
+    }
+
     private void logoutDialog() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("Logout!")
@@ -129,6 +187,13 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.drawer);
         navView = findViewById(R.id.nav);
+
+        View headerView = navView.getHeaderView(0);
+
+        tvUname = headerView.findViewById(R.id.tvUname);
+        profImg = headerView.findViewById(R.id.mainPimg);
+
+
 
     }
     public void shareApp() {

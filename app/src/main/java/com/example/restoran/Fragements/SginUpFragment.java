@@ -1,16 +1,23 @@
 package com.example.restoran.Fragements;
 
+import static android.app.Activity.RESULT_OK;
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.PatternMatcher;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -23,16 +30,31 @@ import android.widget.Toast;
 import com.example.restoran.LoginRegister;
 import com.example.restoran.MainActivity;
 import com.example.restoran.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SginUpFragment extends Fragment {
 
     Button btnSignin, signUp;
     EditText etemail,etpass,etpassConf;
+    CircleImageView profImg;
+    Bitmap bitmap;
 
     LoginRegister activity;
+    private String urlImg;
+
     public SginUpFragment() {
         // Required empty public constructor
     }
@@ -56,29 +78,24 @@ public class SginUpFragment extends Fragment {
         btnSignin.setOnClickListener(v ->{
             activity.switchTab();
         });
+        profImg.setOnClickListener(v -> {
+            Intent galintent = new Intent(Intent.ACTION_PICK);
+            galintent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(galintent,2);
+        });
         signUp.setOnClickListener(v -> {
             try {
                     if (allDataCorrect()){
                         if (connectionAvailable(requireContext())){
-                        activity.showLoading();
-                        signUp.setEnabled(false);
-                        FirebaseAuth.getInstance().createUserWithEmailAndPassword(etemail.getText().toString().trim(),
-                                        etpass.getText().toString().trim())
-                                .addOnSuccessListener(authResult -> {
-                                    activity.hideLoading();
-                                    Log.e(TAG, "SignUPFragment : Successfully Registered" );
-                                    Toast.makeText(requireContext(), "Successfully Registered!", Toast.LENGTH_SHORT).show();
-                                    clearEdtiTexts();
-                                    activity.switchTab();
-                                    signUp.setEnabled(true);
+                            if (bitmap!=null){
+                                activity.showLoading();
+                                signUp.setEnabled(false);
+                                handleUpload(bitmap);
 
-                                })
-                                .addOnFailureListener(e -> {
-                                    Toast.makeText(requireContext(), "Not Registered!", Toast.LENGTH_SHORT).show();
-                                    Log.e(TAG, "SignUPFragment : " + e.getMessage() );
-                                    activity.hideLoading();
-                                    signUp.setEnabled(true);
-                                });
+                            }
+                            else {
+                                Toast.makeText(requireContext(), "Please select your profile photo!", Toast.LENGTH_SHORT).show();
+                            }
                         }
                         else {
                             Toast.makeText(requireContext(), "No internet connection!", Toast.LENGTH_SHORT).show();
@@ -91,6 +108,84 @@ public class SginUpFragment extends Fragment {
         });
 
 
+    }
+
+    private void handleUpload(Bitmap bitmap) {
+        StorageReference ref = FirebaseStorage.getInstance().getReference()
+                .child("Profile_Images")
+                .child(etemail.getText().toString() + ".jpg");
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,75,baos);
+        ref.putBytes(baos.toByteArray())
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        getDownloadUrl(ref);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "onFailure: " + e.getMessage() );
+                    }
+                });
+    }
+
+    private void getDownloadUrl(StorageReference ref) {
+        ref.getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        urlImg = uri.toString();
+                        Log.d(ContentValues.TAG, "onSuccess: Photo Uploaded Successfully!" + "IMG_URI: " + uri);
+                        registerUser();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "onFailure: " + e.getMessage() );
+                    }
+                });
+    }
+
+    private void registerUser() {
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(etemail.getText().toString().trim(),
+                        etpass.getText().toString().trim())
+                .addOnSuccessListener(authResult -> {
+                    FirebaseDatabase.getInstance().getReference().child("Profile_Img_Links")
+                            .child(etemail.getText().toString()).setValue(urlImg)
+                            .addOnSuccessListener(unused -> {
+                                activity.hideLoading();
+                                Log.e(TAG, "SignUPFragment : Successfully Registered" );
+                                Toast.makeText(requireContext(), "Successfully Registered!", Toast.LENGTH_SHORT).show();
+                                clearEdtiTexts();
+                                activity.switchTab();
+                                signUp.setEnabled(true);
+                            });
+
+
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(requireContext(), "Not Registered!", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "SignUPFragment : " + e.getMessage() );
+                    activity.hideLoading();
+                    signUp.setEnabled(true);
+                });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==2 && resultCode==RESULT_OK){
+            assert data != null;
+            profImg.setImageURI(data.getData());
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(),data.getData());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     private void clearEdtiTexts() {
@@ -155,5 +250,8 @@ public class SginUpFragment extends Fragment {
         etemail = view.findViewById(R.id.etemail);
         etpass = view.findViewById(R.id.etpass);
         etpassConf = view.findViewById(R.id.etpassConfirm);
+        profImg = view.findViewById(R.id.profile_image);
+        bitmap = null;
+        urlImg = "";
     }
 }

@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class BookTable extends AppCompatActivity {
     TextView etDate, etTime;
     LinearLayout laydate,laytime;
     Button btnSubmit, btnCancel;
+    ScrollView sbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -208,11 +210,30 @@ public class BookTable extends AppCompatActivity {
         btnCancel = findViewById(R.id.btnCancel);
         laydate = findViewById(R.id.laydatebt);
         laytime = findViewById(R.id.laytimebt);
+        sbar = findViewById(R.id.sbar);
         ActionBar abar = getSupportActionBar();
         abar.setTitle("Online Booking");
         abar.setDisplayHomeAsUpEnabled(true);
 
     }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("date", etDate.getText().toString());
+        outState.putString("time", etTime.getText().toString());
+        outState.putInt("scrol",sbar.getScrollY());
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        etDate.setText(savedInstanceState.getString("date"));
+        etTime.setText(savedInstanceState.getString("time"));
+        sbar.setScrollY(savedInstanceState.getInt("scrol",0));
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -221,4 +242,5 @@ public class BookTable extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
