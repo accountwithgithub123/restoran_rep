@@ -32,7 +32,10 @@ import com.example.restoran.MainActivity;
 import com.example.restoran.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -54,6 +57,7 @@ public class SginUpFragment extends Fragment {
 
     LoginRegister activity;
     private String urlImg;
+
 
     public SginUpFragment() {
         // Required empty public constructor
@@ -150,11 +154,12 @@ public class SginUpFragment extends Fragment {
     }
 
     private void registerUser() {
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(etemail.getText().toString().trim(),
-                        etpass.getText().toString().trim())
-                .addOnSuccessListener(authResult -> {
-                    FirebaseDatabase.getInstance().getReference().child("Profile_Img_Links")
-                            .child(etemail.getText().toString()).setValue(urlImg)
+        Task<AuthResult> user = FirebaseAuth.getInstance().createUserWithEmailAndPassword(etemail.getText().toString().trim(),
+                        etpass.getText().toString().trim());
+
+                user.addOnSuccessListener(authResult -> {
+                    FirebaseDatabase.getInstance().getReference().child("ProfileImgLinks")
+                            .child(getMyPath()).setValue(urlImg)
                             .addOnSuccessListener(unused -> {
                                 activity.hideLoading();
                                 Log.e(TAG, "SignUPFragment : Successfully Registered" );
@@ -172,6 +177,11 @@ public class SginUpFragment extends Fragment {
                     activity.hideLoading();
                     signUp.setEnabled(true);
                 });
+    }
+
+    private String getMyPath() {
+        String email = etemail.getText().toString().trim();
+        return email.substring(0,email.indexOf('@'));
     }
 
     @Override

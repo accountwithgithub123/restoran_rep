@@ -64,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
         if (user!=null){
             if (user.getEmail()!=null){
                 tvUname.setText(user.getEmail());
-                DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Profile_Img_Links")
-                        .child(user.getEmail());
+                DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("ProfileImgLinks")
+                        .child(getMyPath(user.getEmail()));
                 myRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -73,6 +73,10 @@ public class MainActivity extends AppCompatActivity {
                         // You can get the value using dataSnapshot.getValue()
                         imgUrl = dataSnapshot.getValue(String.class);
                         Log.d("readingData from Database", "Value is: " + imgUrl);
+                        if(!imgUrl.equals("")){
+                            Log.e("MainActivity", "onCreate: imgUrl === " + imgUrl );
+                            picassoFunction(Uri.parse(imgUrl));
+                        }
                     }
 
                     @Override
@@ -80,13 +84,19 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
-
+                Log.e("MainActivity", "onCreate: user.getEmail() === " + user.getEmail() );
+            }
+            else{
+                Log.e("MainActivity", "onCreate: user.getEmail() is  null in main activity" );
             }
             if (user.getPhotoUrl()!=null){
+                Log.e("MainActivity", "onCreate: user.getPhotourl() === " + user.getPhotoUrl() );
                 picassoFunction(user.getPhotoUrl());
-            }else if(!imgUrl.equals("")){
-                picassoFunction(Uri.parse(imgUrl));
-            }
+            }else
+                Log.e("MainActivity", "onCreate: Photo url is else running ");
+        }
+        else{
+            Log.e("MainActivity", "onCreate: User is null in main activity" );
         }
         ivrotate.setAnimation(AnimationUtils.loadAnimation(this,R.anim.rotate_img));
         toggle.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
@@ -131,6 +141,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    private String getMyPath(String email) {
+        return email.substring(0,email.indexOf('@'));
+    }
+
     private void picassoFunction(Uri url){
         try {
             Picasso.get()
