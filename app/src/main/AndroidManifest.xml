@@ -11,13 +11,19 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/rlogo"
+        android:icon="@mipmap/ic_launcher_restoran"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/rlogo"
+        android:roundIcon="@mipmap/ic_launcher_restoran_round"
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.Restoran"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ForgetActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ImageViewZoom"
+            android:exported="false"
+            android:theme="@style/aboutActivity" />
         <activity
             android:name=".SplashActivity"
             android:exported="true"
@@ -31,15 +37,16 @@
         </activity>
         <activity
             android:name=".BookTable"
-            android:theme="@style/aboutActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/aboutActivity" />
         <activity
             android:name=".ChefDetail"
             android:exported="false"
             android:theme="@style/aboutActivity" />
         <activity
             android:name=".TableOrder"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/aboutActivity" />
         <activity
             android:name=".TeamActivity"
             android:exported="false"

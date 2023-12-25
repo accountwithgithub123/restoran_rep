@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,7 +16,11 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import java.util.Objects;
+
 public class AboutActivity extends AppCompatActivity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +30,26 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     private void initializer() {
+        ImageView abt1,abt3,abt2,abt4;
+        abt1 = findViewById(R.id.aimg1);
+        abt2 = findViewById(R.id.aimg2);
+        abt3 = findViewById(R.id.aimg3);
+        abt4 = findViewById(R.id.aimg4);
+        abt1.setOnClickListener(v -> zoomImg(R.drawable.about_one));
+        abt2.setOnClickListener(v -> zoomImg(R.drawable.about_two));
+        abt3.setOnClickListener(v -> zoomImg(R.drawable.about_three));
+        abt4.setOnClickListener(v -> zoomImg(R.drawable.about_four));
         ActionBar abar = getSupportActionBar();
         abar.setTitle("About Us");
         abar.setDisplayHomeAsUpEnabled(true);
 
+    }
+
+    private void zoomImg(int imgId) {
+        Intent intent = new Intent(AboutActivity.this, ImageViewZoom.class);
+        intent.putExtra("img",imgId);
+        intent.putExtra("name","Restoran");
+        startActivity(intent);
     }
 
     @Override
@@ -58,6 +80,7 @@ public class AboutActivity extends AppCompatActivity {
             btnloc.setOnClickListener(v -> {
                 locMethod();
             });
+            Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.show();
         }
         return super.onOptionsItemSelected(item);

@@ -1,17 +1,15 @@
 package com.example.restoran.Fragements;
 
+import static android.app.Activity.RESULT_OK;
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import android.annotation.SuppressLint;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -20,34 +18,40 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+
+import com.example.restoran.ForgetActivity;
 import com.example.restoran.LoginRegister;
 import com.example.restoran.MainActivity;
 import com.example.restoran.R;
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 
 public class SigninFragment extends Fragment {
 
     Button btnSignIn,forgetpass;
-    ImageView ivgoogle;
+    Button btnGoogle;
     EditText etemail,etpass;
     CheckBox reme;
 
     GoogleSignInClient mclient;
     LoginRegister activity;
     private static final int RC_SIGN_IN = 123;
+    private static final int REQ_CODE = 10001;
+
     public SigninFragment() {
         // Required empty public constructor
     }
@@ -87,6 +91,7 @@ public class SigninFragment extends Fragment {
                                     requireActivity().finish();
                                 })
                                 .addOnFailureListener(e -> {
+                                    Toast.makeText(requireContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                                     activity.hideLoading();
                                     btnSignIn.setEnabled(true);
                                 });
@@ -100,10 +105,28 @@ public class SigninFragment extends Fragment {
                 Log.e(TAG, "SIGNinFragment : " + e.getMessage() );
             }
         });
-        ivgoogle.setOnClickListener(v -> {
+        btnGoogle.setOnClickListener(v -> {
+            List<AuthUI.IdpConfig> providers = Arrays.asList(
+                   new AuthUI.IdpConfig.GoogleBuilder().build());
+
+// Create and launch sign-in intent
+            @SuppressLint("WrongConstant")
+            Intent signInIntent = AuthUI.getInstance()
+                    .createSignInIntentBuilder()
+                    .setAvailableProviders(providers)
+                    .build().setFlags(PendingIntent.FLAG_IMMUTABLE);
+            startActivityForResult(signInIntent,REQ_CODE);
+        });
+      /*
+
+
+        btnGoogle.setOnClickListener(v -> {
             createRequest();
             signIn();
         });
+
+       */
+        forgetpass.setOnClickListener(v -> startActivity(new Intent(requireContext(), ForgetActivity.class)));
     }
 
     private void createRequest() {
@@ -125,20 +148,43 @@ public class SigninFragment extends Fragment {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
         }
+        if (requestCode==REQ_CODE){
+            if (resultCode==RESULT_OK){
+                activity.keepLogged();
+                startActivity(new Intent(requireContext(),MainActivity.class));
+                requireActivity().finish();
+            }
+            else{
+                Toast.makeText(requireContext(), "request cancelled...", Toast.LENGTH_SHORT).show();
+            }
+        }
+
     }
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
+            if (completedTask.isSuccessful()){
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            startActivity(new Intent(requireContext(), MainActivity.class));
+            Intent intent = new Intent(requireContext(),MainActivity.class);
+            intent.putExtra("email",account.getEmail());
+            intent.putExtra("phurl", Objects.requireNonNull(account.getPhotoUrl()).toString());
+            startActivity(intent);
             activity.keepLogged();
             requireActivity().finish();
+            }
             // e.g., account.getEmail(), account.getDisplayName(), etc.
         } catch (ApiException e) {
             // Handle failed sign-in
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
         }
     }
-
+/*
+if (usr.getMetadata().getCreationTimestamp() == usr.getMetadata().getLastSignInTimestamp()){
+                    Toast.makeText(requireContext(), "Welcome to our app!", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(requireContext(), "Welcome Back!", Toast.LENGTH_SHORT).show();
+                }
+ */
 
 
 
@@ -184,6 +230,6 @@ public class SigninFragment extends Fragment {
         etemail = view.findViewById(R.id.etemail1);
         etpass = view.findViewById(R.id.etpass1);
         reme = view.findViewById(R.id.remem);
-        ivgoogle = view.findViewById(R.id.gogleLogo);
+        btnGoogle = view.findViewById(R.id.btngoogle);
     }
 }

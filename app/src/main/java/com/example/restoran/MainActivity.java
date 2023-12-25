@@ -16,6 +16,8 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +41,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.Objects;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
@@ -60,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
         initializer();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-
         if (user!=null){
             if (user.getEmail()!=null){
                 tvUname.setText(user.getEmail());
@@ -69,14 +72,13 @@ public class MainActivity extends AppCompatActivity {
                 myRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        // This method is called once with the initial value and whenever data at this location is updated.
-                        // You can get the value using dataSnapshot.getValue()
+
                         imgUrl = dataSnapshot.getValue(String.class);
                         Log.d("readingData from Database", "Value is: " + imgUrl);
-                        if(!imgUrl.equals("")){
+
                             Log.e("MainActivity", "onCreate: imgUrl === " + imgUrl );
                             picassoFunction(Uri.parse(imgUrl));
-                        }
+
                     }
 
                     @Override
@@ -97,6 +99,16 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             Log.e("MainActivity", "onCreate: User is null in main activity" );
+            Bundle bundle = getIntent().getExtras();
+            if (bundle!=null){
+                Log.e("MainActivity : ", "getIntent_Data: Email : " + bundle.getString("email") );
+                Log.e("MainActivity : ", "getIntent_Data: photoUrl : " + bundle.getString("phurl") );
+                tvUname.setText(bundle.getString("email"));
+                picassoFunction(Uri.parse(bundle.getString("phurl")));
+            }
+            else
+                Log.e("MainActivity : ", "GetIntent is also null in main Activity ");
+
         }
         ivrotate.setAnimation(AnimationUtils.loadAnimation(this,R.anim.rotate_img));
         toggle.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
@@ -135,7 +147,8 @@ public class MainActivity extends AppCompatActivity {
                     drawerLayout.closeDrawer(GravityCompat.START);
                     logoutDialog();
                 }
-                return false;
+                item.setChecked(true);
+                return true;
             }
         });
 
@@ -190,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
             Intent updInt = new Intent(Intent.ACTION_DEFAULT, Uri.parse("https://www.play.google.com/store/apps/details?id=com.acedevelopers.figmaexport"));
             startActivity(updInt);
         });
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }
 

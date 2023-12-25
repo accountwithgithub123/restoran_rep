@@ -8,15 +8,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ChefDetail extends AppCompatActivity {
-    ImageView ivPic;
+    CircleImageView ivPic;
     TextView tvname,tvage,tvexp,tvdesc;
     Button btnEmail,btnPhone,btnLoc;
-
+    int imgId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,15 +28,19 @@ public class ChefDetail extends AppCompatActivity {
         if (getIntent()!=null){
             int i = getIntent().getIntExtra("chef",0);
             if (i==1){
+                imgId = R.drawable.team1;
                 setData(R.drawable.team1,"Alexandra Grant","  50 years","  15+ years",getString(R.string.desc),"+923202290183","alexandra@gmail.com","6301 Elgin St. California, US");
             }
             else if (i==2){
+                imgId = R.drawable.team2;
                 setData(R.drawable.team2,"Javier Ramirez","  53 years","  10+ years",getString(R.string.desc),"+923207654321","javier@gmail.com","6301 Elgin St. California, US");
             }
             else if (i==3){
+                imgId = R.drawable.team3;
                 setData(R.drawable.team3,"Santos Joseph","  46 years","  8+ years",getString(R.string.desc),"+923017654365","joseph@gmail.com","6301 Elgin St. California, US");
             }
             else if (i==4){
+                imgId = R.drawable.team4;
                 setData(R.drawable.team4,"David Jguyen","  49 years","  17+ years",getString(R.string.desc),"+923582494365","David@gmail.com","6301 Elgin St. California, US");
             }
         }
@@ -41,6 +48,12 @@ public class ChefDetail extends AppCompatActivity {
     }
 
     private void onClicks() {
+        ivPic.setOnClickListener(v -> {
+                Intent intent = new Intent(ChefDetail.this,ImageViewZoom.class);
+                intent.putExtra("name",tvname.getText().toString())
+                        .putExtra("img",imgId);
+                startActivity(intent);
+        });
         btnPhone.setOnClickListener(v -> {
             calMethod();
         });

@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="@color/llyellow"
         android:gravity="center_horizontal"
         android:padding="10dp">
 
@@ -18,14 +19,18 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:padding="10dp">
-            <ImageView
-                android:id="@+id/ivPic"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="200dp"
-                android:src="@drawable/team1"
-                android:scaleType="centerCrop"/>
+            <de.hdodenhof.circleimageview.CircleImageView
 
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/team1"
+                android:id="@+id/ivPic"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_weight="1">
+
+            </de.hdodenhof.circleimageview.CircleImageView>
             <TextView
                 android:id="@+id/tvName"
                 android:layout_width="0dp"

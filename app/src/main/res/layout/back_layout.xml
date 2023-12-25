@@ -21,17 +21,18 @@
                 <ImageView
                     android:id="@+id/toggle"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="?android:attr/actionBarSize"
                     android:clickable="true"
                     android:focusable="true"
                     android:layout_weight=".5"
+                    android:background="@drawable/round_bg"
                     android:src="@drawable/baseline_menu_24"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_weight="5"
                     android:layout_height="wrap_content"
                     android:text="Restoran"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="10dp"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"/>

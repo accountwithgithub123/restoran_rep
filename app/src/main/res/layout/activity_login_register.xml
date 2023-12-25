@@ -15,13 +15,13 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="10dp">
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/rlogo"
-        android:layout_marginTop="20dp"/>
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/white_bg_logo"
+        android:layout_marginTop="10dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,11 +37,12 @@
         android:layout_height="?attr/actionBarSize"
         style="@style/Widget.Material3.TabLayout.Secondary"
         android:background="@color/white"
-        app:tabTextColor="@color/orangeDark"
+        app:tabSelectedTextColor="@color/orange"
+        android:layout_marginBottom="10dp"
         tools:ignore="SpeakableTextPresentCheck"/>
     <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="520dp"
         android:id="@+id/viewpager" />
 
     </LinearLayout>

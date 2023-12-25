@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="280dp"
+    android:background="@drawable/rnd_bg_white"
     android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/ivClose"
@@ -20,10 +21,12 @@
         style="@style/cardBtext"
         android:text="How was the experience?"
         android:layout_gravity="center_horizontal"/>
+
     <RatingBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"/>
+        android:layout_margin="20dp"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

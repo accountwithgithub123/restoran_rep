@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="12dp"
     android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
         android:background="@color/orange"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -26,15 +32,17 @@
             android:text="Contact Us"/>
         <ImageView
             android:id="@+id/ivClose2"
-            android:layout_width="45dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="45dp"
-            android:layout_gravity="end"
+            android:layout_gravity="end|center_vertical"
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/baseline_close_244"/>
     </LinearLayout>
 
         <Button
+            android:layout_marginTop="15dp"
             style="@style/suppBtn"
             android:id="@+id/btnCall"
             android:drawableLeft="@drawable/baseline_call_24"
@@ -46,8 +54,9 @@
             android:text="restoran@gmail.com" />
         <Button
             style="@style/suppBtn"
+            android:layout_marginBottom="15dp"
             android:id="@+id/btneLoc"
             android:drawableLeft="@drawable/baseline_location_on_24"
             android:text="123 Str New York, USA" />
-
-</LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

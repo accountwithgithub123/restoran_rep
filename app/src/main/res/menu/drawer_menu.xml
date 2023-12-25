@@ -4,6 +4,7 @@
                 <item
                     android:id="@+id/homme"
                     android:title="Home"
+                    android:checked="true"
                     android:icon="@drawable/baseline_home_24"/>
                 <item
                     android:id="@+id/about"

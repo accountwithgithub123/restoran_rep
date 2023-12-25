@@ -2,7 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="orange">#F9830D</color>
+    <color name="orange">#F97D00</color>
     <color name="darkBlue">#1D2341</color>
     <color name="noColor">#00FFFFFF</color>
     <color name="tran">#5A000000</color>
@@ -10,4 +10,10 @@
     <color name="lighGray">#CCCCCC</color>
     <color name="transparentDark">#9B000000</color>
     <color name="darkGray">#3D3D3D</color>
+    <color name="red">#FF2D1D</color>
+    <color name="lighred">#D0473D</color>
+    <color name="llyellow">#FFFFFF</color>
+    <color name="Blue">#104BFF</color>
 </resources>
+<!--<color name="orange">#F9830D</color>-->
+<!---->

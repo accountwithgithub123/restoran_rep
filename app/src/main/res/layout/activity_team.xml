@@ -28,7 +28,7 @@
         <TextView
             android:text="---- Our Master Chefs ----"
             android:textColor="@color/orange"
-            android:textSize="30dp"
+            android:textSize="28dp"
             android:padding="10dp"
             android:textStyle="italic|bold"
             style="@style/cardHtext"/>

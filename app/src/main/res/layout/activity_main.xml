@@ -17,9 +17,10 @@
         app:menu="@menu/drawer_menu"
         app:headerLayout="@layout/drawer_layout"
         android:layout_gravity="start"
-        app:itemIconTint="@color/orange"
+
         app:itemVerticalPadding="10dp"
         app:itemIconSize="30dp"
+        android:background="@color/white"
         app:itemRippleColor="@color/lighOrange"
         android:id="@+id/nav"/>
 

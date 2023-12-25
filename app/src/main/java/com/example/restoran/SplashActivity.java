@@ -20,7 +20,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_UNSPECIFIED);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         SharedPreferences pref = getSharedPreferences("Loged",MODE_PRIVATE);
         boolean isloged =  pref.getBoolean("isloged",false);
@@ -34,6 +34,10 @@ public class SplashActivity extends AppCompatActivity {
         tvhost.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.upward_text));
         tvload.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.blink_loading));
 
+        tvhost.setOnClickListener(v ->{
+                    startActivity(new Intent(SplashActivity.this,MainActivity.class));
+                    finish();
+                });
         runnable = new Runnable() {
             @Override
             public void run() {
@@ -47,7 +51,7 @@ public class SplashActivity extends AppCompatActivity {
                 finish();
             }
         };
-        handler.postDelayed(runnable,4000);
+        handler.postDelayed(runnable,2500);
     }
 
     @Override
