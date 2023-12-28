@@ -1,9 +1,5 @@
 package com.example.restoran;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,10 +7,13 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Objects;
 
@@ -40,7 +39,9 @@ public class AboutActivity extends AppCompatActivity {
         abt3.setOnClickListener(v -> zoomImg(R.drawable.about_three));
         abt4.setOnClickListener(v -> zoomImg(R.drawable.about_four));
         ActionBar abar = getSupportActionBar();
-        abar.setTitle("About Us");
+        abar.setTitle("Welcome to Restoran");
+        abar.setElevation(0.0f);
+        abar.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         abar.setDisplayHomeAsUpEnabled(true);
 
     }

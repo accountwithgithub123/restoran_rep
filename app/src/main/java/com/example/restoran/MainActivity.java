@@ -1,19 +1,8 @@
 package com.example.restoran;
 
-import static com.airbnb.lottie.L.TAG;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -25,10 +14,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -63,51 +57,38 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         initializer();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
         if (user!=null){
             if (user.getEmail()!=null){
                 tvUname.setText(user.getEmail());
-                DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("ProfileImgLinks")
-                        .child(getMyPath(user.getEmail()));
-                myRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                imgUrl = String.valueOf(user.getPhotoUrl());
+                if (user.getPhotoUrl()!=null){
+                    Log.e("MainActivity", "onCreate: user.getPhotourl() === " + user.getPhotoUrl() );
+                    picassoFunction(user.getPhotoUrl());
+                }else{
+                    Log.e("MainActivity", "onCreate: Photo url is else running ");
+                    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("ProfileImgLinks")
+                            .child(getMyPath(user.getEmail()));
+                    myRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        imgUrl = dataSnapshot.getValue(String.class);
-                        Log.d("readingData from Database", "Value is: " + imgUrl);
-
+                            imgUrl = dataSnapshot.getValue(String.class);
+                            Log.d("readingData from Database", "Value is: " + imgUrl);
                             Log.e("MainActivity", "onCreate: imgUrl === " + imgUrl );
-                            picassoFunction(Uri.parse(imgUrl));
+                            if (imgUrl!=null)
+                                picassoFunction(Uri.parse(imgUrl));
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
+                }
 
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
                 Log.e("MainActivity", "onCreate: user.getEmail() === " + user.getEmail() );
             }
             else{
                 Log.e("MainActivity", "onCreate: user.getEmail() is  null in main activity" );
             }
-            if (user.getPhotoUrl()!=null){
-                Log.e("MainActivity", "onCreate: user.getPhotourl() === " + user.getPhotoUrl() );
-                picassoFunction(user.getPhotoUrl());
-            }else
-                Log.e("MainActivity", "onCreate: Photo url is else running ");
-        }
-        else{
-            Log.e("MainActivity", "onCreate: User is null in main activity" );
-            Bundle bundle = getIntent().getExtras();
-            if (bundle!=null){
-                Log.e("MainActivity : ", "getIntent_Data: Email : " + bundle.getString("email") );
-                Log.e("MainActivity : ", "getIntent_Data: photoUrl : " + bundle.getString("phurl") );
-                tvUname.setText(bundle.getString("email"));
-                picassoFunction(Uri.parse(bundle.getString("phurl")));
-            }
-            else
-                Log.e("MainActivity : ", "GetIntent is also null in main Activity ");
 
         }
         ivrotate.setAnimation(AnimationUtils.loadAnimation(this,R.anim.rotate_img));
@@ -117,6 +98,12 @@ public class MainActivity extends AppCompatActivity {
 //        toggle.syncState();
         btnBookt.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,BookTable.class)));
 
+        profImg.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this,ImageViewZoom.class);
+            intent.putExtra("name","Profile Image")
+                            .putExtra("imgUrl",imgUrl);
+            startActivity(intent);
+        });
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -189,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
 
                 });
         dialog.show();
+
     }
 
     private void rateDialog() {
@@ -205,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
         });
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
+
     }
 
     private void initializer() {
@@ -234,4 +223,27 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START))
+            drawerLayout.closeDrawer(GravityCompat.START);
+        else
+            super.onBackPressed();
+    }
 }
+/*
+else{
+            Log.e("MainActivity", "onCreate: User is null in main activity" );
+            Bundle bundle = getIntent().getExtras();
+            if (bundle!=null){
+                Log.e("MainActivity : ", "getIntent_Data: Email : " + bundle.getString("email") );
+                Log.e("MainActivity : ", "getIntent_Data: photoUrl : " + bundle.getString("phurl") );
+                tvUname.setText(bundle.getString("email"));
+                picassoFunction(Uri.parse(bundle.getString("phurl")));
+            }
+            else
+                Log.e("MainActivity : ", "GetIntent is also null in main Activity ");
+
+        }
+ */

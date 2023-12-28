@@ -17,11 +17,10 @@
         app:menu="@menu/drawer_menu"
         app:headerLayout="@layout/drawer_layout"
         android:layout_gravity="start"
-
-        app:itemVerticalPadding="10dp"
+        app:itemVerticalPadding="12dp"
         app:itemIconSize="30dp"
         android:background="@color/white"
-        app:itemRippleColor="@color/lighOrange"
+        app:itemRippleColor="@color/lighGray"
         android:id="@+id/nav"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

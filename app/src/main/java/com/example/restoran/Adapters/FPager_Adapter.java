@@ -1,7 +1,6 @@
 package com.example.restoran.Adapters;
 
 import android.content.Context;
-import android.content.pm.SigningInfo;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,10 +23,10 @@ public class FPager_Adapter extends FragmentPagerAdapter {
     }
     public void setContext(Context context,LoginRegister aci){
         this.context = context;
-        sup = new SginUpFragment();
-        sin = new SigninFragment();
-        sup.setAcitivity(aci);
-        sin.setAcitivity(aci);
+        sup = new SginUpFragment(aci);
+        sin = new SigninFragment(aci);
+//        sup.setAcitivity(aci);
+//        sin.setAcitivity(aci);
     }
 
     @NonNull

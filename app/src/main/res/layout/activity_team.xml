@@ -26,7 +26,7 @@
             android:scaleType="centerCrop"/>
 
         <TextView
-            android:text="---- Our Master Chefs ----"
+            android:text="Our Master Chefs"
             android:textColor="@color/orange"
             android:textSize="28dp"
             android:padding="10dp"

@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -20,11 +21,15 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.restoran.ForgetActivity;
+import com.example.restoran.KeepLogged;
 import com.example.restoran.LoginRegister;
 import com.example.restoran.MainActivity;
+import com.example.restoran.ProgDialog;
 import com.example.restoran.R;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -42,7 +47,7 @@ import java.util.Objects;
 
 public class SigninFragment extends Fragment {
 
-    Button btnSignIn,forgetpass;
+    Button btnSignIn,forgetpass,btnReg;
     Button btnGoogle;
     EditText etemail,etpass;
     CheckBox reme;
@@ -53,11 +58,17 @@ public class SigninFragment extends Fragment {
     private static final int REQ_CODE = 10001;
 
     public SigninFragment() {
+    }
+
+    public SigninFragment(LoginRegister activity) {
+        this.activity = activity;
         // Required empty public constructor
     }
 
-
-
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,6 +76,7 @@ public class SigninFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_signin, container, false);
         intializer(view);
         onClicks();
+
         return view;
     }
 
@@ -74,25 +86,34 @@ public class SigninFragment extends Fragment {
 
 
     private void onClicks() {
+
         btnSignIn.setOnClickListener(v -> {
             try {
                     if (allDataCorrect()){
                         if (connectionAvailable(requireContext())){
-                            activity.showLoading();
+                            ProgDialog prog = new ProgDialog(requireContext());
+                            prog.show();
+//                            activity.showLoading();
                             btnSignIn.setEnabled(false);
                             FirebaseAuth.getInstance().signInWithEmailAndPassword(etemail.getText().toString().trim(),
                                 etpass.getText().toString().trim())
                                 .addOnSuccessListener(authResult -> {
-                                    activity.hideLoading();
+//                                    activity.hideLoading();
+                                    prog.dismiss();
                                     if (reme.isChecked()){
-                                        activity.keepLogged();
+                                        new KeepLogged(requireContext()).kepUserLoged();
+//                                        if (activity!=null)
+//                                            activity.keepLogged();
+//                                        else
+//                                            Log.e(TAG, "onClicks: Activity is null in SignIn KeepLoged not works");
                                     }
                                     startActivity(new Intent(requireContext(), MainActivity.class));
                                     requireActivity().finish();
                                 })
                                 .addOnFailureListener(e -> {
                                     Toast.makeText(requireContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    activity.hideLoading();
+//                                    activity.hideLoading();
+                                    prog.dismiss();
                                     btnSignIn.setEnabled(true);
                                 });
                         }
@@ -126,6 +147,17 @@ public class SigninFragment extends Fragment {
         });
 
        */
+        /*
+        btnReg.setOnClickListener(v -> {
+            try {
+                activity.switchTab();
+            }
+            catch (Exception e){
+                Log.e(TAG, "onClicks: " + e.getMessage() );
+            }
+        });
+
+         */
         forgetpass.setOnClickListener(v -> startActivity(new Intent(requireContext(), ForgetActivity.class)));
     }
 
@@ -150,7 +182,8 @@ public class SigninFragment extends Fragment {
         }
         if (requestCode==REQ_CODE){
             if (resultCode==RESULT_OK){
-                activity.keepLogged();
+//                activity.keepLogged();
+                new KeepLogged(requireContext()).kepUserLoged();
                 startActivity(new Intent(requireContext(),MainActivity.class));
                 requireActivity().finish();
             }
@@ -163,13 +196,14 @@ public class SigninFragment extends Fragment {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             if (completedTask.isSuccessful()){
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            Intent intent = new Intent(requireContext(),MainActivity.class);
-            intent.putExtra("email",account.getEmail());
-            intent.putExtra("phurl", Objects.requireNonNull(account.getPhotoUrl()).toString());
-            startActivity(intent);
-            activity.keepLogged();
-            requireActivity().finish();
+                GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+                Intent intent = new Intent(requireContext(),MainActivity.class);
+                intent.putExtra("email",account.getEmail());
+                intent.putExtra("phurl", Objects.requireNonNull(account.getPhotoUrl()).toString());
+                startActivity(intent);
+    //            activity.keepLogged();
+                    new KeepLogged(requireContext()).kepUserLoged();
+                requireActivity().finish();
             }
             // e.g., account.getEmail(), account.getDisplayName(), etc.
         } catch (ApiException e) {
@@ -226,10 +260,27 @@ if (usr.getMetadata().getCreationTimestamp() == usr.getMetadata().getLastSignInT
 
     private void intializer(View view) {
         btnSignIn = view.findViewById(R.id.btnlogin);
+//        btnReg = view.findViewById(R.id.btnregisterS);
         forgetpass = view.findViewById(R.id.btnforget);
         etemail = view.findViewById(R.id.etemail1);
         etpass = view.findViewById(R.id.etpass1);
         reme = view.findViewById(R.id.remem);
         btnGoogle = view.findViewById(R.id.btngoogle);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable("act",activity);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (savedInstanceState != null) {
+                activity = savedInstanceState.getParcelable("act", LoginRegister.class);
+            }
+        }
     }
 }

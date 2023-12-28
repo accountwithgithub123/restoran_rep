@@ -1,14 +1,15 @@
 package com.example.restoran;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.LinearLayout;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.LinearLayout;
 
 public class TeamActivity extends AppCompatActivity {
     LinearLayout l1,l2,l3,l4;
@@ -49,6 +50,8 @@ public class TeamActivity extends AppCompatActivity {
         l4 = findViewById(R.id.l4);
         ActionBar abar = getSupportActionBar();
         abar.setTitle("Meet Our Team");
+        abar.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        abar.setElevation(0.0f);
         abar.setDisplayHomeAsUpEnabled(true);
 
     }

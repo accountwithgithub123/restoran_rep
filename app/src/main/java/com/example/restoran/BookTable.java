@@ -1,21 +1,15 @@
 package com.example.restoran;
 
-import static com.airbnb.lottie.L.TAG;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -25,17 +19,16 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.restoran.Fragements.SigninFragment;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,7 +41,7 @@ public class BookTable extends AppCompatActivity {
     Button btnSubmit, btnCancel;
     String timeSel,selDate = "";
     ScrollView sbar;
-    Orders order;
+    OrderFirebase order;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +51,13 @@ public class BookTable extends AppCompatActivity {
         clickListeners();
         if (getIntent()!=null){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                order = getIntent().getParcelableExtra("obj",Orders.class);
+                order = getIntent().getParcelableExtra("obj",OrderFirebase.class);
             }
             else {
                 order = getIntent().getParcelableExtra("obj");
             }
             if (order!=null){
+                btnSubmit.setText("Update Order");
                 etName.setText(order.getName());
                 etEmail.setText(order.getEmail());
                 etDate.setText(order.getDate());
@@ -207,23 +201,34 @@ public class BookTable extends AppCompatActivity {
         else {
             if (SigninFragment.connectionAvailable(this)){
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                
                 if (user != null) {
                     Log.e("Booking Table ", "validateForm: User is not null with UID = "+ user.getUid() );
-                    clearFocus();
-                    layProg.setVisibility(View.VISIBLE);
+//                    clearFocus();
+//                    layProg.setVisibility(View.VISIBLE);
+                    ProgDialog prog = new ProgDialog(BookTable.this);
+                    prog.show();
                     btnSubmit.setEnabled(false);
+                    String fbKey;
                     DatabaseReference myRef = FirebaseDatabase.getInstance().getReference()
                             .child("ordersDetail").child(user.getUid());
-                    myRef.push().setValue(new OrderFirebase(name,email,selDate,timeSel,noGuests,request))
+                    if (btnSubmit.getText().equals("Update Order")){
+                        fbKey  = order.getFbKey();
+                    }
+                    else{
+                                 fbKey = myRef.push().getKey();
+                    }
+                    assert fbKey != null;
+                    myRef.child(fbKey).setValue(new OrderFirebase(fbKey,name,email,selDate,timeSel,noGuests,request))
                             .addOnSuccessListener(unused -> {
-                                layProg.setVisibility(View.GONE);
+//                                layProg.setVisibility(View.GONE);
+                                prog.dismiss();
                                 Toast.makeText(this, "Order placed successfully.", Toast.LENGTH_SHORT).show();
                                 Log.e("Booking Table ", "Order Placed Successfully! ");
                                 finish();
                             })
                             .addOnFailureListener(e -> {
-                                layProg.setVisibility(View.GONE);
+//                                layProg.setVisibility(View.GONE);
+                                prog.dismiss();
                                 Toast.makeText(this, "Error while placing order!", Toast.LENGTH_SHORT).show();
                                 Log.e("Booking Table ", "Error while placing order! " + e.getMessage());
                                 btnSubmit.setEnabled(true);
@@ -342,7 +347,9 @@ public class BookTable extends AppCompatActivity {
         layProg = findViewById(R.id.lprog);
         sbar = findViewById(R.id.sbar);
         ActionBar abar = getSupportActionBar();
-        abar.setTitle("Online Booking");
+        abar.setTitle("Reservation");
+        abar.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        abar.setElevation(0.0f);
         abar.setDisplayHomeAsUpEnabled(true);
 
     }
@@ -350,6 +357,8 @@ public class BookTable extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("selDate", selDate);
+        outState.putString("selTime", timeSel);
         outState.putString("date", etDate.getText().toString());
         outState.putString("time", etTime.getText().toString());
         outState.putInt("scrol",sbar.getScrollY());
@@ -360,6 +369,8 @@ public class BookTable extends AppCompatActivity {
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         clearFocus();
+        selDate = savedInstanceState.getString("selDate");
+        timeSel = savedInstanceState.getString("selTime");
         etDate.setText(savedInstanceState.getString("date"));
         etTime.setText(savedInstanceState.getString("time"));
         sbar.setScrollY(savedInstanceState.getInt("scrol",0));

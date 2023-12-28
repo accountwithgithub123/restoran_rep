@@ -1,9 +1,11 @@
 package com.example.restoran.Adapters;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +17,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.restoran.BookTable;
+import com.example.restoran.Fragements.SigninFragment;
 import com.example.restoran.OrderFirebase;
-import com.example.restoran.Orders;
+import com.example.restoran.ProgDialog;
 import com.example.restoran.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -60,7 +67,43 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
 //            Toast.makeText(context, "Edit this", Toast.LENGTH_SHORT).show();
         });
         holder.btnDelete.setOnClickListener(v -> {
-            Toast.makeText(context, "Delete this", Toast.LENGTH_SHORT).show();
+            AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+            dialog.setTitle("Delete this order")
+                    .setMessage("Are you sure?")
+                    .setIcon(R.drawable.baseline_info_24)
+                    .setPositiveButton("Yes Delete", (dialog1, which) -> {
+                        if (SigninFragment.connectionAvailable(context)){
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            if (user != null) {
+                                Log.e("Deleting Table ", "DelteOrder: User is not null with UID = "+ user.getUid() );
+                                ProgDialog prog = new ProgDialog(context);
+                                prog.show();
+
+                                DatabaseReference myRef = FirebaseDatabase.getInstance().getReference()
+                                        .child("ordersDetail").child(user.getUid());
+                                myRef.child(order.getFbKey()).removeValue().addOnSuccessListener(unused -> {
+                                        prog.dismiss();
+                                        Toast.makeText(context, "Order deleted successfully.", Toast.LENGTH_SHORT).show();
+                                        Log.e("Deleting Table ", "Order deleted Successfully! ");
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            prog.dismiss();
+                                            Toast.makeText(context, "Error while deleting order!", Toast.LENGTH_SHORT).show();
+                                            Log.e("Deleting Table ", "Error while deleting order! " + e.getMessage());
+                                        });
+                            }
+                            else{
+                                Log.e("Deleting Table ", "User is null" );
+                            }
+                        }
+                        else{
+                            Toast.makeText(context, "No internet connection!", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setNeutralButton("Cancel", (dialog12, which) -> {
+                    });
+            dialog.show();
+//            Toast.makeText(context, "Delete this", Toast.LENGTH_SHORT).show();
         });
 
     }

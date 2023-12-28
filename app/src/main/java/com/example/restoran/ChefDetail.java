@@ -1,17 +1,17 @@
 package com.example.restoran;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -104,7 +104,9 @@ public class ChefDetail extends AppCompatActivity {
         btnLoc = findViewById(R.id.btntvaddress);
 
         ActionBar abar = getSupportActionBar();
-        abar.setTitle("Meet Our Team");
+        abar.setTitle("Chef");
+        abar.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        abar.setElevation(0.0f);
         abar.setDisplayHomeAsUpEnabled(true);
 
     }

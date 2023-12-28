@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="280dp"
+    android:layout_width="300dp"
     android:background="@drawable/rnd_bg_white"
     android:layout_height="wrap_content">
     <ImageView
@@ -23,8 +23,11 @@
         android:layout_gravity="center_horizontal"/>
 
     <RatingBar
-        android:layout_width="match_parent"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
+        android:numStars="5"
+        android:rating="3.5"
+        android:progressTint="@color/yellow"
         android:layout_margin="20dp"
         />
     <LinearLayout
@@ -49,6 +52,7 @@
             android:layout_weight="1"
             android:layout_height="54dp"
             android:layout_margin="5dp"
+            android:backgroundTint="@color/orange"
             android:textSize="18dp"
             android:text="Rate" />
 

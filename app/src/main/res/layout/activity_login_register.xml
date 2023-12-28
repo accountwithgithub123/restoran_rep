@@ -42,11 +42,34 @@
         tools:ignore="SpeakableTextPresentCheck"/>
     <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
-        android:layout_height="520dp"
+        android:layout_height="460dp"
         android:id="@+id/viewpager" />
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/tvLR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Don't have an account." />
+
+            <Button
+                android:id="@+id/btnStab"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="52dp"
+                android:textSize="18dp"
+                android:text="Sign In?" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 
         <com.airbnb.lottie.LottieAnimationView

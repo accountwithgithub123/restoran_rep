@@ -14,9 +14,16 @@
         <item name="android:statusBarColor" >@color/orange</item>
         <item name="android:colorPrimary" >@color/orange</item>
         <item name="android:colorPrimaryDark">@color/orange</item>
+        <item name="android:alertDialogTheme">@style/alrtCustTheme</item>
+        <item name="android:colorAccent" >?android:attr/colorPrimary</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
 
     </style>
+    <style name="alrtCustTheme" parent="android:Theme.Material.Dialog">
+        <item name="android:colorPrimary" >@color/orange</item>
+        <item name="colorAccent" >@color/orange</item>
+    </style>
+
     <style name="mainActivity" parent="Base.Theme.Restoran" >
         <item name="android:statusBarColor" >@color/orange</item>
         <item name="android:windowLightStatusBar" >false</item>
@@ -29,10 +36,18 @@
         <item name="android:statusBarColor" >@color/white</item>
         <item name="android:windowLightStatusBar" >true</item>
     </style>
-    <style name="aboutActivity" parent="Theme.Material3.Light">
+    <style name="aboutActivity" parent="Theme.AppCompat.Light">
         <item name="android:windowBackground">@color/white</item>
         <item name="android:statusBarColor" >@color/white</item>
-        <item name="android:colorPrimary" >@color/orange</item>
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+        <item name="android:windowLightStatusBar" >true</item>
+
+    </style>
+    <style name="orderAct" parent="Theme.Material3.Light">
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:statusBarColor" >@color/white</item>
+        <item name="android:timePickerDialogTheme">@style/alrtCustTheme</item>
+        <item name="android:datePickerDialogTheme">@style/alrtCustTheme</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
         <item name="android:windowLightStatusBar" >true</item>
 
@@ -81,7 +96,7 @@
     <style name="suppBtn" parent="@style/Widget.Material3.Button.ElevatedButton" >
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">54dp</item>
-        <item name="android:textSize" >18sp</item>
+        <item name="android:textSize" >16sp</item>
         <item name="android:elevation" >18dp</item>
         <item name="android:textColor" >@color/darkGray</item>
         <item name="android:layout_marginStart" >10dp</item>
@@ -125,7 +140,7 @@
     <style name="imgLeft" >
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight" >1</item>
+        <item name="android:layout_weight" >.6</item>
     </style>
     <style name="textRight" >
         <item name="android:layout_width">0dp</item>
@@ -135,9 +150,8 @@
 
     </style>
     <style name="dateTimeLay" >
-        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">48dp</item>
-        <item name="android:layout_weight" >1</item>
         <item name="android:padding" >5dp</item>
         <item name="android:layout_margin">5dp</item>
         <item name="android:orientation" >horizontal</item>
@@ -164,7 +178,16 @@
             <item name="android:layout_height">45dp</item>
             <item name="android:layout_marginEnd" >5dp</item>
         </style>
-
-
+    <style name="fragInLay" parent="@style/Widget.Design.TextInputLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="hintTextColor" >@color/orange</item>
+    </style>
+    <style name="fragEt">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">52dp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:textSize" >15dp</item>
+    </style>
 
 </resources>

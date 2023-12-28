@@ -2,22 +2,22 @@ package com.example.restoran;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.restoran.Adapters.OrdersAdapter;
 import com.example.restoran.Fragements.SigninFragment;
@@ -63,7 +63,9 @@ public class TableOrder extends AppCompatActivity {
         }
         
         ActionBar abar = getSupportActionBar();
-        abar.setTitle("Orders Placed");
+        abar.setTitle("Your Orders");
+        abar.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        abar.setElevation(0.0f);
         abar.setDisplayHomeAsUpEnabled(true);
         
         orderList = new ArrayList<>();

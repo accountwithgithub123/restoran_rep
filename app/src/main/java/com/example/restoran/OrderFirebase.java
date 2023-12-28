@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 public class OrderFirebase implements Parcelable {
 
+    private String fbKey;
     private String name;
     private String email;
     private String date;
@@ -19,7 +20,8 @@ public class OrderFirebase implements Parcelable {
 
     // Constructor
 
-    public OrderFirebase(String name, String email, String date, String time, String numberOfGuests, String request) {
+    public OrderFirebase(String fbKey,String name, String email, String date, String time, String numberOfGuests, String request) {
+        this.fbKey = fbKey;
         this.name = name;
         this.email = email;
         this.date = date;
@@ -29,6 +31,8 @@ public class OrderFirebase implements Parcelable {
     }
 
     protected OrderFirebase(Parcel in) {
+
+        fbKey = in.readString();
         name = in.readString();
         email = in.readString();
         date = in.readString();
@@ -54,7 +58,9 @@ public class OrderFirebase implements Parcelable {
         return name;
     }
 
-
+    public String getFbKey() {
+        return fbKey;
+    }
 
     public String getEmail() {
         return email;
@@ -77,6 +83,10 @@ public class OrderFirebase implements Parcelable {
     }
 
     // Setter methods
+
+    public void setFbKey(String fbKey) {
+        this.fbKey = fbKey;
+    }
     public void setName(String name) {
         this.name = name;
     }
