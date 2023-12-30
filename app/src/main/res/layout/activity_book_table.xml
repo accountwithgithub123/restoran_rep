@@ -8,16 +8,9 @@
     tools:context=".BookTable">
 
 
-
-<!--        <TextView-->
-<!--            android:text="-&#45;&#45;&#45;&#45; Reservation -&#45;&#45;&#45;&#45;"-->
-<!--            android:textColor="@color/orange"-->
-<!--            android:textSize="30dp"-->
-<!--            android:textStyle="italic|bold"-->
-<!--            style="@style/cardHtext"/>-->
         <TextView
-            android:text="Book a table online\n"
-            android:textSize="16dp"
+            android:text="@string/book_a_table_online_n"
+            android:textSize="16sp"
             android:layout_gravity="center_horizontal"
             style="@style/cardHtext"/>
 
@@ -138,7 +131,7 @@
                 android:backgroundTint="@color/orange"
                 android:textColor="@color/white"
                 style="@style/Widget.MaterialComponents.Button"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:text="Book Now" />
 
 
@@ -158,28 +151,6 @@
     </LinearLayout>
 
         </ScrollView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:visibility="gone"
-            android:id="@+id/lprog">
-
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animationView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:lottie_rawRes="@raw/loading_orange"
-            app:lottie_autoPlay="true"
-            android:background="@drawable/black_rnd"
-            app:lottie_loop="true"/>
-
-        </LinearLayout>
 
 
 </LinearLayout>

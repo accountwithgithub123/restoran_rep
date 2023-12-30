@@ -23,7 +23,7 @@
         <activity
             android:name=".ImageViewZoom"
             android:exported="false"
-            android:theme="@style/aboutActivity" />
+            android:theme="@style/ImgZoomActivity" />
         <activity
             android:name=".SplashActivity"
             android:exported="true"
@@ -31,7 +31,6 @@
             android:theme="@style/splashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -61,8 +60,7 @@
             android:theme="@style/main2Theme" />
         <activity
             android:name=".LoginRegister"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
     </application>
 
 </manifest>

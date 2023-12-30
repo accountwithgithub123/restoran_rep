@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,9 +61,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
         holder.tvreq.setText(order.getRequest());
         holder.btnEdit.setOnClickListener(v -> {
             Intent intent = new Intent(context, BookTable.class);
-            intent.putExtra("obj", (Parcelable) order);
+            intent.putExtra("obj", order);
             context.startActivity(intent);
-//            Toast.makeText(context, "Edit this", Toast.LENGTH_SHORT).show();
         });
         holder.btnDelete.setOnClickListener(v -> {
             AlertDialog.Builder dialog = new AlertDialog.Builder(context);
@@ -103,7 +101,6 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
                     .setNeutralButton("Cancel", (dialog12, which) -> {
                     });
             dialog.show();
-//            Toast.makeText(context, "Delete this", Toast.LENGTH_SHORT).show();
         });
 
     }
@@ -113,12 +110,11 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
         return ordersList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvsrno,tvname,tvemail,tvdate,tvtime,tvguest,tvreq;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tvname,tvemail,tvdate,tvtime,tvguest,tvreq;
         ImageButton btnEdit,btnDelete;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-//            tvsrno = itemView.findViewById(R.id.srno);
             tvname = itemView.findViewById(R.id.tvoname);
             tvemail = itemView.findViewById(R.id.tvoemail);
             tvdate = itemView.findViewById(R.id.tvoDate);

@@ -20,13 +20,13 @@
             android:gravity="center_vertical"
             android:padding="10dp">
             <de.hdodenhof.circleimageview.CircleImageView
-
                 android:layout_width="0dp"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/team1"
                 android:id="@+id/ivPic"
                 android:clickable="true"
+                android:contentDescription="@string/icon"
                 android:focusable="true"
                 android:layout_weight="1">
 
@@ -37,9 +37,9 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
-                android:text="Javier Joseph" />
+                android:text="@string/chefn1" />
         </LinearLayout>
         <LinearLayout
             style="@style/textLayout">

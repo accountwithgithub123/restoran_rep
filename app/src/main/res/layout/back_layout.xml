@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="#FAF7FF"
+    android:background="@color/lighGray"
     android:layout_height="match_parent">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -21,10 +21,11 @@
                 <ImageView
                     android:id="@+id/toggle"
                     android:layout_width="0dp"
-                    android:layout_height="?android:attr/actionBarSize"
+                    android:layout_height="40dp"
                     android:clickable="true"
+                    android:contentDescription="@string/icon"
                     android:focusable="true"
-                    android:layout_weight=".5"
+                    android:layout_weight=".6"
                     android:background="@drawable/round_bg"
                     android:src="@drawable/baseline_menu_24"/>
                 <TextView
@@ -74,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Enjoy our delicious meal"
-                    android:textSize="28dp"
+                    android:textSize="28sp"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textStyle="bold|italic"
@@ -87,16 +88,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/detail"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textColor="@color/white"/>
-                <ImageView
-                    android:id="@+id/ivhero"
-                    android:visibility="gone"
-                    android:layout_width="120dp"
-                    android:layout_margin="20dp"
-                    android:layout_height="120dp"
-                    android:src="@drawable/hero"/>
-
 
 
             </LinearLayout>

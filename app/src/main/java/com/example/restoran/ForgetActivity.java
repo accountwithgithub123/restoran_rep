@@ -52,7 +52,6 @@ public class ForgetActivity extends AppCompatActivity {
             else{
                 Toast.makeText(ForgetActivity.this, "No internet connection!", Toast.LENGTH_SHORT).show();
             }
-
         });
 
     }

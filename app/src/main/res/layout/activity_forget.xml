@@ -9,21 +9,31 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:padding="25dp"
+        android:gravity="center"
         android:orientation="vertical">
 
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/forg_img"
+            android:contentDescription="@string/icon"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Reset your password\n"/>
+
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            style="@style/Widget.Design.TextInputLayout"
-            app:startIconDrawable="@drawable/baseline_email_24"
-            app:hintAnimationEnabled="true">
+            style="@style/fragInLay"
+            app:startIconDrawable="@drawable/baseline_email_24">
             <EditText
+                style="@style/fragEt"
                 android:inputType="textEmailAddress"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
                 android:hint="Email Address"
-                android:padding="5dp"
+                android:autofillHints="emailAddress"
                 android:id="@+id/foremail"/>
         </com.google.android.material.textfield.TextInputLayout>
         <Button
@@ -31,7 +41,7 @@
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
             android:layout_height="52dp"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:layout_marginTop="5dp"
             android:text="Reset Password" />
 

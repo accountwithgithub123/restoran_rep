@@ -1,8 +1,6 @@
 package com.example.restoran;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +10,10 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+
+@SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
     Handler handler = new Handler();
     Runnable runnable;
@@ -21,7 +23,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         SharedPreferences pref = getSharedPreferences("Loged",MODE_PRIVATE);
         boolean isloged =  pref.getBoolean("isloged",false);
         ImageView ivhost = findViewById(R.id.ghLogo);
@@ -38,24 +39,21 @@ public class SplashActivity extends AppCompatActivity {
                     startActivity(new Intent(SplashActivity.this,MainActivity.class));
                     finish();
                 });
-        runnable = new Runnable() {
-            @Override
-            public void run() {
-                if (isloged){
-                    startActivity(new Intent(SplashActivity.this,MainActivity.class));
-                }
-                else{
-//                    startActivity(new Intent(SplashActivity.this,MainActivity.class));
-                    startActivity(new Intent(SplashActivity.this,LoginRegister.class));
-                }
-                finish();
+        runnable = () -> {
+            if (isloged){
+                startActivity(new Intent(SplashActivity.this,MainActivity.class));
             }
+            else{
+                startActivity(new Intent(SplashActivity.this,LoginRegister.class));
+            }
+            finish();
         };
-        handler.postDelayed(runnable,2500);
+        handler.postDelayed(runnable,2000);
     }
 
     @Override
     public void onBackPressed() {
+        handler.removeCallbacks(runnable);
         handler.removeCallbacks(runnable);
         super.onBackPressed();
     }

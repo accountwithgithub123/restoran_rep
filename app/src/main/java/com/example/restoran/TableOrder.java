@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -39,6 +40,7 @@ public class TableOrder extends AppCompatActivity {
 //    DBHelper dbHelper;
     OrdersAdapter adapter;
     LinearLayout layProg;
+    TextView tvnoRec;
 
 
     @Override
@@ -51,6 +53,7 @@ public class TableOrder extends AppCompatActivity {
     @SuppressLint("NotifyDataSetChanged")
     private void initializer() {
         rcview = findViewById(R.id.rcView);
+        tvnoRec = findViewById(R.id.tvNorec);
         swpeLay = findViewById(R.id.swpLayout);
         layProg = findViewById(R.id.lprogto);
         
@@ -105,6 +108,10 @@ public class TableOrder extends AppCompatActivity {
                         else
                             Log.d(TAG, "Order Obj is null in reading dataFromFirebase");
                     }
+                    if (!orderList.isEmpty())
+                        tvnoRec.setVisibility(View.GONE);
+                    else
+                        tvnoRec.setVisibility(View.VISIBLE);
                     adapter.notifyDataChanged(orderList);
                     layProg.setVisibility(View.GONE);
                     swpeLay.setRefreshing(false);

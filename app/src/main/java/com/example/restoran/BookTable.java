@@ -1,5 +1,6 @@
 package com.example.restoran;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.graphics.Color;
@@ -11,12 +12,10 @@ import android.util.Log;
 import android.util.Patterns;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,72 +36,69 @@ import java.util.Locale;
 public class BookTable extends AppCompatActivity {
     EditText etName, etEmail,  etNoGuests, etRequest;
     TextView etDate, etTime;
-    LinearLayout laydate,laytime,layProg;
+    LinearLayout laydate,laytime;
     Button btnSubmit, btnCancel;
     String timeSel,selDate = "";
     ScrollView sbar;
     OrderFirebase order;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_table);
         initializer();
         clickListeners();
-        if (getIntent()!=null){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                order = getIntent().getParcelableExtra("obj",OrderFirebase.class);
+            if (getIntent()!=null){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    order = getIntent().getParcelableExtra("obj",OrderFirebase.class);
+                }
+                else {
+                    order = getIntent().getParcelableExtra("obj");
+                }
+                if (order!=null){
+                    btnSubmit.setText("Update Order");
+                    etName.setText(order.getName());
+                    etEmail.setText(order.getEmail());
+                    etDate.setText(order.getDate());
+                    selDate = order.getDate();
+                    etTime.setText(order.getTime());
+                    timeSel = order.getTime();
+                    etNoGuests.setText(order.getNumberOfGuests());
+                    etRequest.setText(order.getRequest());
+                    Log.e("Intent Data : ", "onCreate: Order Object was not null" );
+                }
+                else
+                    Log.e("Intent Data : ", "onCreate: Order Object was null" );
             }
-            else {
-                order = getIntent().getParcelableExtra("obj");
-            }
-            if (order!=null){
-                btnSubmit.setText("Update Order");
-                etName.setText(order.getName());
-                etEmail.setText(order.getEmail());
-                etDate.setText(order.getDate());
-                selDate = order.getDate();
-                etTime.setText(order.getTime());
-                timeSel = order.getTime();
-                etNoGuests.setText(order.getNumberOfGuests());
-                etRequest.setText(order.getRequest());
-                Log.e("Intent Data : ", "onCreate: Order Object was not null" );
-            }
-            else
-                Log.e("Intent Data : ", "onCreate: Order Object was null" );
-        }
     }
+    private void initializer() {
+        etName = findViewById(R.id.etNamebt);
+        etEmail = findViewById(R.id.etembt);
+        etDate = findViewById(R.id.etdatebt);
+        etTime = findViewById(R.id.ettimebt);
+        etNoGuests = findViewById(R.id.etguestbt);
+        etRequest = findViewById(R.id.etrequestbt);
+        btnSubmit = findViewById(R.id.btnsubmit);
+        btnCancel = findViewById(R.id.btnCancel);
+        laydate = findViewById(R.id.laydatebt);
+        laytime = findViewById(R.id.laytimebt);
+        sbar = findViewById(R.id.sbar);
+        ActionBar abar = getSupportActionBar();
+        assert abar != null;
+        abar.setTitle("Reservation");
+        abar.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        abar.setElevation(0.0f);
+        abar.setDisplayHomeAsUpEnabled(true);
 
+    }
     private void clickListeners() {
-        laydate.setOnClickListener(v -> {
-            showDatePicker(new DateCallback() {
-                @Override
-                public void onDateSelected(Date selectedDate) {
-                    // Update etDate with the selected date
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
-                    selDate = dateFormat.format(selectedDate);
-                    etDate.setText(selDate);
-                }
-            });
-        });
-        /*laytime.setOnClickListener(v -> {
-            Calendar time = Calendar.getInstance();
-            int hours = time.get(Calendar.HOUR_OF_DAY);
-            int mint = time.get(Calendar.MINUTE);
-            TimePickerDialog timeDialog = new TimePickerDialog(BookTable.this, new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                    timeSel = timePicker.getHour() + ":" + timePicker.getMinute();
-                    etTime.setText(timeSel);
-                }
-            },hours,mint,false);
-            timeDialog.setTitle("Choose your Preferred Time:\n");
-            timeDialog.show();
-
-        });
-
-         */
-
+        laydate.setOnClickListener(v -> showDatePicker(selectedDate -> {
+            // Update etDate with the selected date
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+            selDate = dateFormat.format(selectedDate);
+            etDate.setText(selDate);
+        }));
         laytime.setOnClickListener(v ->{
             if (selDate.isEmpty())
                 Toast.makeText(this, "First select date!", Toast.LENGTH_SHORT).show();
@@ -117,30 +113,21 @@ public class BookTable extends AppCompatActivity {
                 }
                 );
 
-        btnSubmit.setOnClickListener(v -> {
-            validateForm();
-            });
+        btnSubmit.setOnClickListener(v -> validateForm());
         btnCancel.setOnClickListener(v -> finish());
     }
 
     private boolean todayDate(){
         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String cdate =  sd.format(new Date());
-//        SimpleDateFormat st = new SimpleDateFormat("hh:mm",Locale.getDefault());
-//        String ctime =st.format(new Date());
-//        int ch = Integer.parseInt(ctime.substring(0,2));
-//        int cm = Integer.parseInt(ctime.substring(3));
-//        Log.e("BookTable", "CurrentTime: " + ch + ":" + cm );
-//        Log.e("BookTable", "selTime: " + Integer.parseInt(timeSel.substring(0,2)) + ":" + Integer.parseInt(timeSel.substring(3,5)) );
         int cyear = Integer.parseInt(cdate.substring(0,4));
         int cmonth = Integer.parseInt(cdate.substring(5,7));
         int cday = Integer.parseInt(cdate.substring(8));
         Log.e("BookTable", "CurDate: " + cyear + "-" + cmonth + "-" + cday );
         Log.e("BookTable", "SelDate: " + Integer.parseInt(selDate.substring(6)) + "-" + Integer.parseInt(selDate.substring(0,2)) + "-" + Integer.parseInt(selDate.substring(3,5)) );
+
         return cday == Integer.parseInt(selDate.substring(3, 5)) && cmonth == Integer.parseInt(selDate.substring(0, 2))
                 && cyear == Integer.parseInt(selDate.substring(6));
-//         && ch==Integer.parseInt(timeSel.substring(0,2)) &&
-//                    cm<Integer.parseInt(timeSel.substring(3,5))
     }
 
     private void validateForm() {
@@ -185,14 +172,6 @@ public class BookTable extends AppCompatActivity {
             etTime.requestFocus();
 
         }
-//        else if (!to()) {
-//            etTime.setError("Select a correct Time");
-//            Toast.makeText(BookTable.this, "Select a correct time!", Toast.LENGTH_SHORT).show();
-//            etTime.requestFocus();
-//
-//        }
-
-        // Validate number of guests
         else if (TextUtils.isEmpty(noGuests) || !TextUtils.isDigitsOnly(noGuests) || Integer.parseInt(noGuests) <= 0) {
             etNoGuests.setError("Enter a valid number of guests");
             etNoGuests.requestFocus();
@@ -203,10 +182,8 @@ public class BookTable extends AppCompatActivity {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null) {
                     Log.e("Booking Table ", "validateForm: User is not null with UID = "+ user.getUid() );
-//                    clearFocus();
-//                    layProg.setVisibility(View.VISIBLE);
                     ProgDialog prog = new ProgDialog(BookTable.this);
-                    prog.show();
+                        prog.show();
                     btnSubmit.setEnabled(false);
                     String fbKey;
                     DatabaseReference myRef = FirebaseDatabase.getInstance().getReference()
@@ -215,19 +192,17 @@ public class BookTable extends AppCompatActivity {
                         fbKey  = order.getFbKey();
                     }
                     else{
-                                 fbKey = myRef.push().getKey();
+                        fbKey = myRef.push().getKey();
                     }
                     assert fbKey != null;
                     myRef.child(fbKey).setValue(new OrderFirebase(fbKey,name,email,selDate,timeSel,noGuests,request))
                             .addOnSuccessListener(unused -> {
-//                                layProg.setVisibility(View.GONE);
                                 prog.dismiss();
                                 Toast.makeText(this, "Order placed successfully.", Toast.LENGTH_SHORT).show();
                                 Log.e("Booking Table ", "Order Placed Successfully! ");
                                 finish();
                             })
                             .addOnFailureListener(e -> {
-//                                layProg.setVisibility(View.GONE);
                                 prog.dismiss();
                                 Toast.makeText(this, "Error while placing order!", Toast.LENGTH_SHORT).show();
                                 Log.e("Booking Table ", "Error while placing order! " + e.getMessage());
@@ -241,13 +216,8 @@ public class BookTable extends AppCompatActivity {
             else{
                 Toast.makeText(this, "No internet connection!", Toast.LENGTH_SHORT).show();
             }
-//            DBHelper dbHelper = new DBHelper(BookTable.this);
-//            dbHelper.insertData(name,email,selDate,timeSel,noGuests,request);
-//            Toast.makeText(this, "Order placed successfully", Toast.LENGTH_SHORT).show();
-//            finish();
+
         }
-
-
     }
 
     private void clearFocus() {
@@ -256,11 +226,6 @@ public class BookTable extends AppCompatActivity {
         etRequest.clearFocus();
         etNoGuests.clearFocus();
     }
-
-    private String getMyPath(String email) {
-        return email.substring(0,email.indexOf('@'));
-    }
-
 
     interface DateCallback {
         void onDateSelected(Date selectedDate);
@@ -273,17 +238,14 @@ public class BookTable extends AppCompatActivity {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         // Create and show DatePickerDialog
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                // Update etDate with the selected date
-                calendar.set(year, monthOfYear, dayOfMonth);
-                Date selectedDate = calendar.getTime();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year1, monthOfYear, dayOfMonth) -> {
+            // Update etDate with the selected date
+            calendar.set(year1, monthOfYear, dayOfMonth);
+            Date selectedDate = calendar.getTime();
 
-                // Call the callback to return the selected date
-                if (callback != null) {
-                    callback.onDateSelected(selectedDate);
-                }
+            // Call the callback to return the selected date
+            if (callback != null) {
+                callback.onDateSelected(selectedDate);
             }
         }, year, month, day);
 
@@ -304,55 +266,29 @@ public class BookTable extends AppCompatActivity {
         int minute = calendar.get(Calendar.MINUTE);
 
         // Create and show TimePickerDialog
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                // Check if the selected time is in the past
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, (view, hourOfDay, minute1) -> {
+            // Check if the selected time is in the past
+            calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            calendar.set(Calendar.MINUTE, minute1);
+
+            if (calendar.getTimeInMillis() < System.currentTimeMillis() && todayDate()) {
+                // Selected time is in the past, show a message and prompt the user to select again
+                Toast.makeText(BookTable.this, "Please select a future time", Toast.LENGTH_SHORT).show();
+                showTimePicker(callback); // Recursively call the method to show the TimePicker again
+            } else {
+                // Update etTime with the selected time
                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                calendar.set(Calendar.MINUTE, minute);
-
-                if (calendar.getTimeInMillis() < System.currentTimeMillis() && todayDate()) {
-                    // Selected time is in the past, show a message and prompt the user to select again
-                    Toast.makeText(BookTable.this, "Please select a future time", Toast.LENGTH_SHORT).show();
-                    showTimePicker(callback); // Recursively call the method to show the TimePicker again
-                } else {
-                    // Update etTime with the selected time
-                    calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                    calendar.set(Calendar.MINUTE, minute);
-                    Date selectedTime = calendar.getTime();
-
-                    // Call the callback to return the selected time
-                    if (callback != null) {
-                        callback.onTimeSelected(selectedTime);
-                    }
+                calendar.set(Calendar.MINUTE, minute1);
+                Date selectedTime = calendar.getTime();
+                // Call the callback to return the selected time
+                if (callback != null) {
+                    callback.onTimeSelected(selectedTime);
                 }
             }
-        }, hour, minute, false); // The last parameter indicates whether the time is in 24-hour format
-
-        // Show the dialog
+        }, hour, minute, false);
         timePickerDialog.show();
     }
 
-    private void initializer() {
-        etName = findViewById(R.id.etNamebt);
-        etEmail = findViewById(R.id.etembt);
-        etDate = findViewById(R.id.etdatebt);
-        etTime = findViewById(R.id.ettimebt);
-        etNoGuests = findViewById(R.id.etguestbt);
-        etRequest = findViewById(R.id.etrequestbt);
-        btnSubmit = findViewById(R.id.btnsubmit);
-        btnCancel = findViewById(R.id.btnCancel);
-        laydate = findViewById(R.id.laydatebt);
-        laytime = findViewById(R.id.laytimebt);
-        layProg = findViewById(R.id.lprog);
-        sbar = findViewById(R.id.sbar);
-        ActionBar abar = getSupportActionBar();
-        abar.setTitle("Reservation");
-        abar.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-        abar.setElevation(0.0f);
-        abar.setDisplayHomeAsUpEnabled(true);
-
-    }
 
 
     @Override

@@ -24,7 +24,7 @@ public class ImageViewZoom extends AppCompatActivity {
         setContentView(R.layout.activity_image_view_zoom);
         ActionBar abar = getSupportActionBar();
         assert abar != null;
-        abar.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        abar.setBackgroundDrawable(new ColorDrawable(Color.BLACK));
         abar.setElevation(0.0f);
         abar.setDisplayHomeAsUpEnabled(true);
         ivpic = findViewById(R.id.myZoomageView);

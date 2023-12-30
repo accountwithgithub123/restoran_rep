@@ -19,6 +19,7 @@
         app:zoomage_zoomable="true"
         app:zoomage_translatable="true"
         app:zoomage_minScale="0.3"
+        android:contentDescription="@string/icon"
         app:zoomage_maxScale="10"
         />
 </RelativeLayout>

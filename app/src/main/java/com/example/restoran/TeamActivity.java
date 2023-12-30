@@ -23,18 +23,10 @@ public class TeamActivity extends AppCompatActivity {
     }
 
     private void onClicks() {
-        l1.setOnClickListener(v -> {
-            IntentStarter(1);
-        });
-        l2.setOnClickListener(v -> {
-            IntentStarter(2);
-        });
-        l3.setOnClickListener(v -> {
-            IntentStarter(3);
-        });
-        l4.setOnClickListener(v -> {
-            IntentStarter(4);
-        });
+        l1.setOnClickListener(v -> IntentStarter(1));
+        l2.setOnClickListener(v -> IntentStarter(2));
+        l3.setOnClickListener(v -> IntentStarter(3));
+        l4.setOnClickListener(v -> IntentStarter(4));
     }
 
     private void IntentStarter(int i) {
@@ -49,6 +41,7 @@ public class TeamActivity extends AppCompatActivity {
         l3 = findViewById(R.id.l3);
         l4 = findViewById(R.id.l4);
         ActionBar abar = getSupportActionBar();
+        assert abar != null;
         abar.setTitle("Meet Our Team");
         abar.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         abar.setElevation(0.0f);

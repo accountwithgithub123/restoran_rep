@@ -1,6 +1,5 @@
 package com.example.restoran;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -10,16 +9,13 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -46,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     NavigationView navView;
     ImageView toggle;
-    ImageView ivrotate;
     FloatingActionButton btnBookt;
     String imgUrl = "";
 
@@ -54,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         initializer();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user!=null){
@@ -67,10 +61,10 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     Log.e("MainActivity", "onCreate: Photo url is else running ");
                     DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("ProfileImgLinks")
-                            .child(getMyPath(user.getEmail()));
+                            .child(user.getUid());
                     myRef.addValueEventListener(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                             imgUrl = dataSnapshot.getValue(String.class);
                             Log.d("readingData from Database", "Value is: " + imgUrl);
@@ -91,11 +85,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-        ivrotate.setAnimation(AnimationUtils.loadAnimation(this,R.anim.rotate_img));
         toggle.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close);
-//        drawerLayout.addDrawerListener(toggle);
-//        toggle.syncState();
         btnBookt.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,BookTable.class)));
 
         profImg.setOnClickListener(v -> {
@@ -104,45 +94,31 @@ public class MainActivity extends AppCompatActivity {
                             .putExtra("imgUrl",imgUrl);
             startActivity(intent);
         });
-        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId()==R.id.homme){
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                }
-                else if (item.getItemId()==R.id.about){
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    startActivity(new Intent(MainActivity.this, AboutActivity.class));
-                }
-                else if (item.getItemId()==R.id.team){
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    startActivity(new Intent(MainActivity.this, TeamActivity.class));
-                }
-                else if (item.getItemId()==R.id.tables){
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    startActivity(new Intent(MainActivity.this, TableOrder.class));
-                }
-                else if (item.getItemId()==R.id.share){
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    shareApp();
-                }
-                else if (item.getItemId()==R.id.rate){
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    rateDialog();
-                }
-                else if (item.getItemId()==R.id.logout){
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    logoutDialog();
-                }
-                item.setChecked(true);
-                return true;
+        navView.setNavigationItemSelectedListener(item -> {
+            drawerLayout.closeDrawer(GravityCompat.START);
+            if (item.getItemId()==R.id.about){
+                startActivity(new Intent(MainActivity.this, AboutActivity.class));
             }
+            else if (item.getItemId()==R.id.team){
+                startActivity(new Intent(MainActivity.this, TeamActivity.class));
+            }
+            else if (item.getItemId()==R.id.tables){
+                startActivity(new Intent(MainActivity.this, TableOrder.class));
+            }
+            else if (item.getItemId()==R.id.share){
+                shareApp();
+            }
+            else if (item.getItemId()==R.id.rate){
+                rateDialog();
+            }
+            else if (item.getItemId()==R.id.logout){
+                logoutDialog();
+            }
+//            item.setChecked(true);
+            return false;
         });
 
 
-    }
-    private String getMyPath(String email) {
-        return email.substring(0,email.indexOf('@'));
     }
 
     private void picassoFunction(Uri url){
@@ -158,25 +134,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void logoutDialog() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle("Logout!")
-                .setMessage("Are you sure?")
-                .setIcon(R.drawable.outline_mobile_screen_share_24)
-                .setPositiveButton("Logout", (dialog1, which) -> {
-                    if (FirebaseAuth.getInstance().getCurrentUser()!=null){
-                        FirebaseAuth.getInstance().signOut();
-                        SharedPreferences.Editor editor = getSharedPreferences("Loged", MODE_PRIVATE).edit();
-                        editor.putBoolean("isloged",false);
-                        editor.apply();
-                        startActivity(new Intent(MainActivity.this, LoginRegister.class));
-                        finish();
-                    }
-                })
-                .setNeutralButton("Cancel", (dialog12, which) -> {
-
-                });
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.logout_dialog);
+        Button btnNot = dialog.findViewById(R.id.btncanDialog);
+        btnNot.setOnClickListener(v -> dialog.dismiss());
+        Button btnLogout = dialog.findViewById(R.id.btnlogOut);
+        btnLogout.setOnClickListener(v -> {
+            if (FirebaseAuth.getInstance().getCurrentUser()!=null){
+                FirebaseAuth.getInstance().signOut();
+                SharedPreferences.Editor editor = getSharedPreferences("Loged", MODE_PRIVATE).edit();
+                editor.putBoolean("isloged",false);
+                editor.apply();
+                startActivity(new Intent(MainActivity.this, LoginRegister.class));
+                finish();
+            }
+        });
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
-
     }
 
     private void rateDialog() {
@@ -197,7 +171,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializer() {
-        ivrotate = findViewById(R.id.ivhero);
         btnBookt = findViewById(R.id.btable);
         toggle = findViewById(R.id.toggle);
         toolbar = findViewById(R.id.toolbar);
@@ -232,18 +205,3 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
     }
 }
-/*
-else{
-            Log.e("MainActivity", "onCreate: User is null in main activity" );
-            Bundle bundle = getIntent().getExtras();
-            if (bundle!=null){
-                Log.e("MainActivity : ", "getIntent_Data: Email : " + bundle.getString("email") );
-                Log.e("MainActivity : ", "getIntent_Data: photoUrl : " + bundle.getString("phurl") );
-                tvUname.setText(bundle.getString("email"));
-                picassoFunction(Uri.parse(bundle.getString("phurl")));
-            }
-            else
-                Log.e("MainActivity : ", "GetIntent is also null in main Activity ");
-
-        }
- */

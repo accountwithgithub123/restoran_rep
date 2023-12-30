@@ -12,28 +12,7 @@
         android:padding="10dp"
         android:background="@color/llyellow"
         android:gravity="center_horizontal">
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:gravity="center_vertical"-->
-<!--            android:orientation="horizontal">-->
-<!--        <ImageView-->
-<!--            android:id="@+id/ivbackAbt"-->
-<!--            android:layout_width="40dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:src="@drawable/baseline_arrow_back_ios_24"-->
-<!--            android:clickable="true"-->
-<!--            android:layout_margin="10dp"-->
-<!--            android:focusable="true"/>-->
 
-<!--        <TextView-->
-<!--            android:text="Welcome to Restoran"-->
-<!--            android:textColor="@color/orange"-->
-<!--            android:textSize="28dp"-->
-<!--            android:textStyle="italic|bold"-->
-<!--            style="@style/cardHtext"/>-->
-
-<!--        </LinearLayout>-->
         <LinearLayout
             android:layout_width="320dp"
             android:layout_marginTop="10dp"
@@ -48,6 +27,7 @@
                 android:layout_weight="1"
                 android:layout_height="170dp"
                 android:src="@drawable/about_one"
+                android:contentDescription="ab1"
                 android:scaleType="centerCrop"/>
 
             <ImageView
@@ -59,6 +39,7 @@
                 android:layout_height="120dp"
                 android:src="@drawable/about_two"
                 android:layout_gravity="bottom"
+                android:contentDescription="ab2"
                 android:layout_marginStart="10dp"
                 android:scaleType="centerCrop"/>
 
@@ -76,6 +57,7 @@
                 android:focusable="true"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:contentDescription="@string/ab3"
                 android:layout_height="120dp"
                 android:src="@drawable/about_three"
                 android:scaleType="centerCrop"/>
@@ -87,6 +69,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_marginStart="10dp"
+                android:contentDescription="@string/ab4"
                 android:layout_height="170dp"
                 android:src="@drawable/about_four"
                 android:scaleType="centerCrop"/>
@@ -96,7 +79,7 @@
         </LinearLayout>
         <TextView
             android:text="@string/aboutTxt"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:padding="22dp"
             android:textAlignment="textStart"
             style="@style/cardBtext"/>
@@ -113,14 +96,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="15"
+                android:text="@string/_15"
                 android:padding="5dp"
                 android:textSize="36sp"
                 android:textStyle="bold"
                 android:textColor="@color/orange"
                 />
             <TextView
-                android:text="Years Experience        "
+                android:text="@string/years_experience"
+                android:layout_marginEnd="39dp"
                 style="@style/cardBtext"
                 />
         </LinearLayout>
@@ -132,6 +116,7 @@
             android:padding="10dp">
             <View
                 android:layout_width="8dp"
+                android:layout_marginStart="10dp"
                 android:layout_height="80dp"
                 android:background="@color/orange"/>
             <TextView

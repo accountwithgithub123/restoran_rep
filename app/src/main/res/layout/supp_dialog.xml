@@ -20,6 +20,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="45dp"
+            android:contentDescription="@string/icon"
             android:src="@drawable/baseline_support_agent_24"/>
         <TextView
             android:layout_width="0dp"
@@ -34,10 +35,11 @@
             android:id="@+id/ivClose2"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="45dp"
+            android:layout_height="48dp"
             android:layout_gravity="end|center_vertical"
             android:clickable="true"
             android:focusable="true"
+            android:contentDescription="@string/icon"
             android:src="@drawable/baseline_close_244"/>
     </LinearLayout>
 
@@ -46,17 +48,17 @@
             style="@style/suppBtn"
             android:id="@+id/btnCall"
             android:drawableLeft="@drawable/baseline_call_24"
-            android:text="+012 320 2290183" />
+            android:text="@string/rest_no" />
         <Button
             style="@style/suppBtn"
             android:id="@+id/btnEmail"
             android:drawableLeft="@drawable/baseline_email_244"
-            android:text="restoran@gmail.com" />
+            android:text="@string/restoran_gmail" />
         <Button
             style="@style/suppBtn"
             android:layout_marginBottom="15dp"
             android:id="@+id/btneLoc"
             android:drawableLeft="@drawable/baseline_location_on_24"
-            android:text="123 Str New York, USA" />
+            android:text="@string/location" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

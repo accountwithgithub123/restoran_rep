@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="12dp"
+    app:cardCornerRadius="10dp"
     android:layout_width="match_parent"
     android:paddingLeft="5dp"
     android:paddingRight="5dp"
     android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardUseCompatPadding="true"
-        app:cardElevation="12dp"
-        app:cardCornerRadius="10dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:orientation="vertical">
 
             <RelativeLayout
-                android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -53,15 +50,83 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="vertical">
+                <LinearLayout
+                    style="@style/textLayout">
+                    <TextView
+                        style="@style/tvdetail"
+                        android:text="Name:" />
+                    <TextView
+                        style="@style/tvdetail2"
+                        android:text="Fawad Hanif"
+                        android:id="@+id/tvoname" />
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/textLayout">
+                    <TextView
+                        style="@style/tvdetail"
+                        android:text="Email:" />
+                    <TextView
+                        style="@style/tvdetail2"
+                        android:text="mcsahiwalsargodha@gmail.com"
+                        android:id="@+id/tvoemail" />
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/textLayout">
+                    <TextView
+                        style="@style/tvdetail"
+                        android:text="Date:" />
+                    <TextView
+                        style="@style/tvdetail2"
+                        android:text="12/01/2023"
+                        android:id="@+id/tvoDate" />
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/textLayout">
+                    <TextView
+                        style="@style/tvdetail"
+                        android:text="Time:" />
+                    <TextView
+                        style="@style/tvdetail2"
+                        android:text="09:30 AM"
+                        android:id="@+id/tvoTime" />
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/textLayout">
+                    <TextView
+                        style="@style/tvdetail"
+                        android:text="Guests#" />
+                    <TextView
+                        style="@style/tvdetail2"
+                        android:text="12"
+                        android:id="@+id/tvoguest" />
+                </LinearLayout><LinearLayout
+                style="@style/textLayout">
+                <TextView
+                    style="@style/tvdetail"
+                    android:text="Request:" />
+                <TextView
+                    style="@style/tvdetail2"
+                    android:text="12/01/2023"
+                    android:id="@+id/tvoreq" />
+            </LinearLayout>
 
 
-            <LinearLayout
+
+
+        </LinearLayout>
+
+
+        </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+
+<!--
+ <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.6"
-                android:orientation="vertical"
-                android:padding="10dp">
+                android:orientation="vertical">
 
                 <TextView
                     style="@style/tvdetail"
@@ -91,33 +156,32 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
                 android:orientation="vertical"
-                android:gravity="center_vertical"
-                android:padding="10dp">
+                android:gravity="center_vertical">
 
                 <TextView
-                    style="@style/tvdetail"
+                    style="@style/tvdetail2"
                     android:text="Fawad Hanif"
                     android:id="@+id/tvoname"/>
                  <TextView
-                    style="@style/tvdetail"
+                    style="@style/tvdetail2"
                     android:text="fawad.hanif24@gmail.com"
                     android:id="@+id/tvoemail"/>
                 <TextView
-                    style="@style/tvdetail"
+                    style="@style/tvdetail2"
                     android:text="12/21/2023"
                     android:id="@+id/tvoDate"/>
                 <TextView
-                    style="@style/tvdetail"
+                    style="@style/tvdetail2"
                     android:text="10:44 pm"
                     android:id="@+id/tvoTime"/>
 
                 <TextView
-                    style="@style/tvdetail"
+                    style="@style/tvdetail2"
                     android:text="10"
                     android:id="@+id/tvoguest"/>
 
                 <TextView
-                    style="@style/tvdetail"
+                    style="@style/tvdetail2"
                     android:text="@string/app_name"
                     android:id="@+id/tvoreq"/>
 
@@ -125,15 +189,4 @@
             </LinearLayout>
 
 
-        </LinearLayout>
-
-
-        </LinearLayout>
-
-
-
-    </androidx.cardview.widget.CardView>
-
-
-
-</LinearLayout>
+-->

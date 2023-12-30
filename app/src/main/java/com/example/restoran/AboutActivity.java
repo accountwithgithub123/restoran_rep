@@ -19,8 +19,6 @@ import java.util.Objects;
 
 public class AboutActivity extends AppCompatActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +37,11 @@ public class AboutActivity extends AppCompatActivity {
         abt3.setOnClickListener(v -> zoomImg(R.drawable.about_three));
         abt4.setOnClickListener(v -> zoomImg(R.drawable.about_four));
         ActionBar abar = getSupportActionBar();
+        assert abar != null;
         abar.setTitle("Welcome to Restoran");
         abar.setElevation(0.0f);
         abar.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         abar.setDisplayHomeAsUpEnabled(true);
-
     }
 
     private void zoomImg(int imgId) {
@@ -66,45 +64,36 @@ public class AboutActivity extends AppCompatActivity {
         }
         else if (item.getItemId()==R.id.support){
             Dialog dialog = new Dialog(this);
-            dialog.setContentView(R.layout.supp_dialog);
+                dialog.setContentView(R.layout.supp_dialog);
             ImageView ivClose = dialog.findViewById(R.id.ivClose2);
-            ivClose.setOnClickListener(v -> dialog.dismiss());
+                ivClose.setOnClickListener(v -> dialog.dismiss());
             Button btnEmail = dialog.findViewById(R.id.btnEmail);
-            btnEmail.setOnClickListener(v ->{
-                emailMethod();
-            });
+                btnEmail.setOnClickListener(v -> emailMethod());
             Button btnCall = dialog.findViewById(R.id.btnCall);
-            btnCall.setOnClickListener(v -> {
-                calMethod();
-            });
+                btnCall.setOnClickListener(v -> calMethod());
             Button btnloc = dialog.findViewById(R.id.btneLoc);
-            btnloc.setOnClickListener(v -> {
-                locMethod();
-            });
-            Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                btnloc.setOnClickListener(v -> locMethod());
+                Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.show();
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void locMethod() {
-        Intent intnt = new Intent(Intent.ACTION_DEFAULT,Uri.parse("geo:0,0?q=New York, USA"));
-        startActivity(intnt);
+        startActivity(new Intent(Intent.ACTION_DEFAULT,Uri.parse("geo:0,0?q=New York, USA")));
     }
 
     private void calMethod(){
         Intent calli = new Intent(Intent.ACTION_DIAL);
-        calli.setData(Uri.parse("tel:+1233202290183"));
-        startActivity(Intent.createChooser(calli,"Call via"));
+            calli.setData(Uri.parse("tel:+1233202290183"));
+            startActivity(Intent.createChooser(calli,"Call via"));
     }
     private void emailMethod() {
         Intent emaili = new Intent(Intent.ACTION_SEND);
-        emaili.setType("sms/rfc822");
-        emaili.putExtra(Intent.EXTRA_EMAIL, new String[]{"restoran@gmail.com"});
-        emaili.putExtra(Intent.EXTRA_SUBJECT,"Querying");
-        emaili.putExtra(Intent.EXTRA_TEXT,"I want to ask you questions about how I can make do this tack");
-        startActivity(Intent.createChooser(emaili,"Email via:"));
+            emaili.setType("sms/rfc822");
+            emaili.putExtra(Intent.EXTRA_EMAIL, new String[]{"restoran@gmail.com"});
+            emaili.putExtra(Intent.EXTRA_SUBJECT,"Querying");
+            emaili.putExtra(Intent.EXTRA_TEXT,"I want to ask you questions about how I can make do this tack");
+            startActivity(Intent.createChooser(emaili,"Email via:"));
     }
-
-
 }

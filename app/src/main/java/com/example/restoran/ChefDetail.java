@@ -1,5 +1,6 @@
 package com.example.restoran;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -29,19 +30,19 @@ public class ChefDetail extends AppCompatActivity {
             int i = getIntent().getIntExtra("chef",0);
             if (i==1){
                 imgId = R.drawable.team1;
-                setData(R.drawable.team1,"Alexandra Grant","  50 years","  15+ years",getString(R.string.desc),"+923202290183","alexandra@gmail.com","6301 Elgin St. California, US");
+                setData(R.drawable.team1,"Alexandra Grant","  50 years","  15+ years",getString(R.string.desc),"+923202290183","alexandra@gmail.com");
             }
             else if (i==2){
                 imgId = R.drawable.team2;
-                setData(R.drawable.team2,"Javier Ramirez","  53 years","  10+ years",getString(R.string.desc),"+923207654321","javier@gmail.com","6301 Elgin St. California, US");
+                setData(R.drawable.team2,"Javier Ramirez","  53 years","  10+ years",getString(R.string.desc),"+923207654321","javier@gmail.com");
             }
             else if (i==3){
                 imgId = R.drawable.team3;
-                setData(R.drawable.team3,"Santos Joseph","  46 years","  8+ years",getString(R.string.desc),"+923017654365","joseph@gmail.com","6301 Elgin St. California, US");
+                setData(R.drawable.team3,"Santos Joseph","  46 years","  8+ years",getString(R.string.desc),"+923017654365","joseph@gmail.com");
             }
             else if (i==4){
                 imgId = R.drawable.team4;
-                setData(R.drawable.team4,"David Jguyen","  49 years","  17+ years",getString(R.string.desc),"+923582494365","David@gmail.com","6301 Elgin St. California, US");
+                setData(R.drawable.team4,"David Jguyen","  49 years","  17+ years",getString(R.string.desc),"+923582494365","David@gmail.com");
             }
         }
         onClicks();
@@ -54,20 +55,13 @@ public class ChefDetail extends AppCompatActivity {
                         .putExtra("img",imgId);
                 startActivity(intent);
         });
-        btnPhone.setOnClickListener(v -> {
-            calMethod();
-        });
-        btnEmail.setOnClickListener(v -> {
-            emailMethod();
-        });
-        btnLoc.setOnClickListener(v -> {
-            locMethod();
-        });
+        btnPhone.setOnClickListener(v -> calMethod());
+        btnEmail.setOnClickListener(v -> emailMethod());
+        btnLoc.setOnClickListener(v -> locMethod());
     }
 
     private void locMethod() {
-        Intent intnt = new Intent(Intent.ACTION_DEFAULT,Uri.parse("geo:0,0?q=" + btnLoc.getText().toString()));
-        startActivity(intnt);
+        startActivity(new Intent(Intent.ACTION_DEFAULT,Uri.parse("geo:0,0?q=" + btnLoc.getText().toString())));
     }
     private void calMethod(){
         Intent calli = new Intent(Intent.ACTION_DIAL);
@@ -82,7 +76,8 @@ public class ChefDetail extends AppCompatActivity {
         emaili.putExtra(Intent.EXTRA_TEXT,"I want to ask you questions...");
         startActivity(Intent.createChooser(emaili,"Email via:"));
     }
-    private void setData(int team1, String name, String age, String exp, String desc, String no, String em, String add) {
+    @SuppressLint("SetTextI18n")
+    private void setData(int team1, String name, String age, String exp, String desc, String no, String em) {
         ivPic.setImageResource(team1);
         tvname.setText(name);
         tvage.setText(age);
@@ -90,7 +85,7 @@ public class ChefDetail extends AppCompatActivity {
         tvdesc.setText(desc);
         btnPhone.setText(no);
         btnEmail.setText(em);
-        btnLoc.setText(add);
+        btnLoc.setText("6301 Elgin St. California, US");
     }
 
     private void initializer() {
@@ -104,6 +99,7 @@ public class ChefDetail extends AppCompatActivity {
         btnLoc = findViewById(R.id.btntvaddress);
 
         ActionBar abar = getSupportActionBar();
+        assert abar != null;
         abar.setTitle("Chef");
         abar.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         abar.setElevation(0.0f);

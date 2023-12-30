@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="300dp"
+    android:gravity="center_horizontal"
+    android:padding="15dp"
+    android:background="@drawable/rnd_bg_white"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/baseline_info_24"/>
+    <TextView
+        style="@style/cardHtext"
+        android:layout_marginTop="15dp"
+        android:text="Alert"/>
+    <TextView
+        style="@style/cardBtext"
+        android:textSize="14sp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:text="Are you sure you want to logout?" />
+
+
+        <Button
+            style="@style/Widget.MaterialComponents.Button"
+            android:id="@+id/btnlogOut"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/lighGray"
+            android:text="Logout" />
+        <Button
+            style="@style/Widget.MaterialComponents.Button"
+            android:id="@+id/btncanDialog"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/orange"
+            android:text="Cancel" />
+
+
+</LinearLayout>
