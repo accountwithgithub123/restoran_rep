@@ -73,7 +73,6 @@ public class SginUpFragment extends Fragment {
                                 prog.show();
                                 signUp.setEnabled(false);
                                 handleUpload(bitmap);
-
                             }
                             else {
                                 Toast.makeText(requireContext(), "Please select your profile photo!", Toast.LENGTH_SHORT).show();
@@ -138,10 +137,7 @@ public class SginUpFragment extends Fragment {
                 });
     }
 
-    private String getMyPath() {
-        String email = etemail.getText().toString().trim();
-        return email.substring(0,email.indexOf('@'));
-    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

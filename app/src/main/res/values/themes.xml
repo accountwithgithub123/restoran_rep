@@ -14,8 +14,9 @@
         <item name="android:colorPrimary" >@color/orange</item>
         <item name="android:colorPrimaryDark">@color/orange</item>
         <item name="android:colorAccent" >?android:attr/colorPrimary</item>
+        <item name="android:textColorHighlight">@color/lighGray</item>
+        <item name="android:textColorHighlightInverse">@color/lighGray</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
-
     </style>
 
 
@@ -89,7 +90,7 @@
         <item name="android:scaleType" >centerCrop</item>
         <item name="android:layout_marginBottom" >10dp</item>
     </style>
-    <style name="suppBtn" parent="@style/Widget.Material3.Button.TextButton" >
+    <style name="suppBtn" parent="@style/Widget.Material3.Button.TextButton">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">54dp</item>
         <item name="android:textSize" >16sp</item>

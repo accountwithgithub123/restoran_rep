@@ -11,6 +11,7 @@
         <TextView
             android:text="@string/book_a_table_online_n"
             android:textSize="16sp"
+            android:paddingBottom="5dp"
             android:layout_gravity="center_horizontal"
             style="@style/cardHtext"/>
 
@@ -30,8 +31,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardUseCompatPadding="true"
-                app:cardElevation="12dp"
-                app:cardCornerRadius="30dp">
+                app:cardElevation="8dp"
+                app:cardCornerRadius="12dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -105,6 +106,7 @@
                 android:id="@+id/etguestbt"
                 android:hint="No. of Guests*"
                 android:inputType="number"
+                android:maxLength="2"
                 style="@style/texInLayEt"/>
 
 

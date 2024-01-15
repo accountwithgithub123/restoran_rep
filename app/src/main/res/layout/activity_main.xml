@@ -18,7 +18,7 @@
         app:headerLayout="@layout/drawer_layout"
         android:layout_gravity="start"
         app:itemVerticalPadding="12dp"
-        app:itemIconSize="30dp"
+        app:itemIconSize="25dp"
         android:background="@color/white"
         app:itemRippleColor="@color/lighGray"
         android:id="@+id/nav"/>

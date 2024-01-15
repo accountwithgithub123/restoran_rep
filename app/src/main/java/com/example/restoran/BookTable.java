@@ -97,6 +97,7 @@ public class BookTable extends AppCompatActivity {
             // Update etDate with the selected date
             SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
             selDate = dateFormat.format(selectedDate);
+            timeSel = "";
             etDate.setText(selDate);
         }));
         laytime.setOnClickListener(v ->{

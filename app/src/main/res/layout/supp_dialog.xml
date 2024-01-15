@@ -43,21 +43,24 @@
             android:src="@drawable/baseline_close_244"/>
     </LinearLayout>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:layout_marginTop="15dp"
             style="@style/suppBtn"
             android:id="@+id/btnCall"
+            android:textColor="@color/orange"
             android:drawableLeft="@drawable/baseline_call_24"
             android:text="@string/rest_no" />
         <Button
             style="@style/suppBtn"
             android:id="@+id/btnEmail"
+            android:textColor="@color/orange"
             android:drawableLeft="@drawable/baseline_email_244"
             android:text="@string/restoran_gmail" />
         <Button
             style="@style/suppBtn"
             android:layout_marginBottom="15dp"
             android:id="@+id/btneLoc"
+            android:textColor="@color/orange"
             android:drawableLeft="@drawable/baseline_location_on_24"
             android:text="@string/location" />
     </LinearLayout>
